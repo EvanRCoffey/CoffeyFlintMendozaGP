@@ -1,0 +1,57 @@
+---General purpose variables---
+
+var oneUser = true;
+
+var zipCode;
+var radius;
+
+var earliestTime;
+var latestTime;
+var noTimeConstraints = true;
+
+var yelp = true;
+var onConnect = true;
+var eventful = true;
+
+---Yelp variables---
+
+var minYelpRating;
+
+var priceOne = true;
+var priceTwo = true;
+var priceThree = true;
+var priceFour = true;
+var prices = [priceOne, priceTwo, priceThree, priceFour];
+
+var foodPizza = true;
+var foodMexican = true;
+var foodAsian = true;
+var foodAmerican = true;
+var foodBuffet = true;
+var foodSeafood = true;
+var foodVegetarian = true;
+var foodIndian = true;
+var foodBurgers = true;
+var foodCafe = true;
+var foodEverythingElse = true;
+var foods = [foodPizza, foodMexican, foodAsian, foodAmerican, foodBuffet, foodSeafood, foodVegetarian, foodIndian, foodBurgers, foodCafe, foodEverythingElse];
+
+---onConnect variables---
+
+var maxLength;
+
+var ratingG = true;
+var ratingPG = true;
+var ratingPG13 = true;
+var ratingR = true;
+var ratingNC17 = true;
+var ratings = [ratingG, ratingPG, ratingPG13, ratingR, ratingNC17];
+
+var genreAction = true;
+var genreComedy = true;
+var genreRomance = true;
+var genreHorror = true;
+var genreFamily = true;
+var genreDrama = true;
+var genreScifi = true;
+var genres = [genreAction, genreComedy, genreRomance, genreHorror, genreFamily, genreDrama, genreScifi];

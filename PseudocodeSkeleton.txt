@@ -1,0 +1,34 @@
+Display HTML for Question 1
+Get user preference (for now, don't actually do anything here)
+
+Display HTML for Question 2
+Either have user type in Zip Code OR click a button that finds it for them
+
+Display HTML for Question 3
+Get user radius
+
+Display HTML for Question 4
+Either have user select a range of times OR click a button that says "no time constraints"
+
+Display HTML for Question 5
+Checkboxes - Food, Movies, Concerts
+
+if (yelp)
+	Display HTML for yelpQ1 (price range)
+		Get info
+	Display HTML for yelpQ2 (minimum rating)
+		Get info
+	Display HTML for yelpQ3 (food styles)
+		Get info
+
+if (onConnect)
+	Display HTML for ocQ1 (ratings)
+		Get info
+	Display HTML for ocQ2 (maximum length)
+		Get info
+	Display HTML for ocQ3 (genres)
+		Get info
+
+[DO ALL YOUR API/JSON STUFF HERE, POPULATE VARIABLES] - Nathaniel's done some work here
+
+[DISPLAY ALL RESULTS]

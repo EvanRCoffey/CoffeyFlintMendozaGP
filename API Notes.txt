@@ -1,0 +1,70 @@
+From http://www.creativebloq.com/web-design/apis-developers-need-know-121518469
+"15 APIs developers need to know."
+
+Google Maps - A basic use case is plotting places, such as local search results, as markers on a map. You might also add paths for multiple points. More advanced usage creates interactions between frontend code and the map – for example, click a search result and highlight the place on the map.
+
+IBM Watson - Among Watson and AlchemyAPI's toolset are features that allow developers to determine keywords in a block of text, extract relations and other data from any text, and even recognise faces or objects in photos.  IBM Watson Text to Speech APITrack this API allows users to synthesize speech from English or Spanish text. The service incorporates the appropriate cadence and intonation into the synthesized speech to help it sound natural, and can create audio files in .wav or .ogg format.
+
+Twitter - For almost everyone, the Twitter API can help expand your reach by enabling your users to share your application with their followers.
+
+Facebook - You can use Facebook for social login (see Stormpath), sharing and app monetisation.
+
+Others:
+-Google Maps Geocoding API
+-FullContact
+-Stormpath
+-Amazon S3
+-Dropbox
+-Google Apps
+-Stripe
+-Twilio (SENDS TEXT MESSAGES!)
+-MailChimp
+-SendGrip
+-Slack
+_________________________________________________________________________
+
+From http://www.computersciencezone.org/50-most-useful-apis-for-developers/
+"50 most useful APIs for developers"
+
+-Google APIs
+-Yahoo APIs
+-Social Media
+-Marketplaces
+-Other APIs of interest
+
+	*Census -The Census Bureau Application Programming Interface (API) lets developers customize Census Bureau statistics into apps that provide users with access to publicly available datasets
+
+	*Soundcloud - many common integration use cases like playing and uploading sounds or how to take advantage of SoundCloud's many social features.
+
+	*Klout - Klout is a website and mobile app that uses social media analytics to rate its users according to online social influence via the "Klout Score", which is a numerical value between 1 and 100.
+
+	*Tastekid - TasteKid recommends similar music (musicians, bands), movies, TV shows, books, authors and games, based on what you like.
+
+	*Bit.ly - The Bitly URL shortening service
+
+	*Weather Underground - Weather Underground is a commercial weather service providing real-time weather information via the Internet.
+
+	*YR.NO - Yr offers free weather data in XML format for 10 million places around the world. 
+
+	*Wordpress - The WordPress API stands for the WordPress Application Programming Interface. It can be separated into multiple API sections / topics. Each covers the functions involved in and use of a given set of functionality. Together they form what might be called the WordPress API, which is the plugin/theme/add-on interface created by the entire WordPress project.
+
+	*Vimeo - The only way to perform authenticated read/write requests on videos, users, groups, channels, albums, or upload.
+
+	*Yelp - By using the Yelp API you’ll be able to:
+
+*Find up to 40 best results for a geographically-oriented search
+*Sort results by the best match for the query, highest ratings, or distance
+*Limit results to those businesses offering a Yelp Deal, and display information about the deal like the title, savings, and purchase URL
+*Identify and display whether a business has been claimed on Yelp.com
+
+	*Dropbox - A powerful API for apps that work with files.
+
+	*Janrain - Our customer identity and access management platform gives you the power to deliver unparalleled marketing experiences by streamlining customer identification with social login and registration, and enabling diverse engagement applications that generate even more rich customer data.
+
+	*Amazon S3 - Amazon simple storage service.  "Simple, durable, massively scalable object storage"
+
+	*Europeana - Explore 53,673,921 artworks, artefacts, books, videos and sounds from across Europe.
+-Mashups
+
+_________________________________________________________________________
+The Deck of Cards API is a simple service that allows developers to simulate a deck of cards. API methods allow users to shuffle the cards, draw a card, reshuffle the cards, get a brand new deck, or use a partial deck.
