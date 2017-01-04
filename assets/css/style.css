@@ -1,0 +1,11 @@
+.jumbotron {
+	background-color: #fe5d26; 
+	color: #2d382e;
+	text-align: center;
+}
+
+#questionArea {
+	margin: 20px;
+	padding: 20px;
+	border: 1px solid black;
+}

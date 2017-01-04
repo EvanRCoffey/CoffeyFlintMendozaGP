@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Concert Test</title>
+</head>
+
+<body>
+    <input type="number" id="zip">
+    <input type="number" id="radius">
+    <button> find a concert! </button>
+    <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script type="text/javascript">
+    // Consumer Key  PKc-Jpz6DaTILY4nPa02SA
+    // Consumer Secret JHPiV0EazUlgEJrR_KjzxOgmhoI
+    // Token oesrPWHSgtioTq0k8h5ckOudu6cbHxnO
+    // Token Secret  rH6mvZpEgTxeCR9G23PwAFJUglc
+    // Generate new API v2.0 token/secret
+
+
+
+    $("button").on("click", function() {
+                var zip = $('#zip').val();
+                var rad = $('#radius').val();
+                var food = $(this).data();
+                var queryURL = "https://api.yelp.com/v2/search/?term=food&location=78669&api_key=PKc-Jpz6DaTILY4nPa02SA";
+
+
+                $.ajax({
+                    params: {
+                        oauth_consumer_key: 'PKc-Jpz6DaTILY4nPa02SA',
+                        oauth_signature: 'JHPiV0EazUlgEJrR_KjzxOgmhoI',
+                        oauth_token: '9Vnpg1jJsvg_OkpbI8ZFfmY7WwpmMEWc',
+                        oauth_signature:'13l-lHWfUC13YHnUXqspyfgFzmU',
+                    }
+                    url: queryURL
+                    method: "GET"
+                }).done(function(response) {
+
+                        for (i = 0; i < response.food.length; i++) {
+
+                            console.log(response.food[i].location[0].Name);
+                          }
+
+                        })
+
+                    var results = response.data;
+
+
+
+
+
+
+
+
+
+
+                });;
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Go Now!</title>
+    <!-- Added link to the jQuery Library -->
+    <script src="https://code.jquery.com/jquery-2.2.3.js" integrity="sha256-laXWtGydpwqJ8JA+X9x2miwmaiKhn8tVmOVEigRNtP4=" crossorigin="anonymous"></script>
+    <!-- Added a link to Bootstrap-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="gonow.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="jumbotron" style="background-color: #fe5d26; color: #2d382e">
+            <h1 class="text-center">Where Do You Want to Go Now?</h1>
+        </div>
+        <div class="contents">
+            <div class="buttonHolder">
+                <button class="start">Start</button>
+            </div>
+            <div class="row hidden-test">
+            </div>
+        </div>
+    </div>
+    <br>
+    <div id='myform'>
+        <div class="row hidden-test">
+            <div class="container">
+                <div class="row">
+                    <br>
+                    <div class="row">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">1 Going Alone?</div>
+                            <div class="panel-body">
+                                <form class="answers">
+                                    <input type="radio" name="question0" value="a" id="q
+                                    1a">
+                                    <label for="q1a"> Yes</label>
+                                    <br/>
+                                    <input type="radio" name="question0" value="b" id="q1b">
+                                    <label for="q1b"> No</label>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">2 Where Are You Now?</div>
+                        <div class="panel-body">
+                            <form class="answers">
+                                <input type="radio" name="question0" value="a" id="q1a">
+                                <label for="q1a"> You are here-GPI Location</label>
+                                <br/>
+                                <input type="radio" name="question0" value="b" id="q1b">
+                                <label for="q1b">Please provide your location</label>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <br>
+                            <div class="row">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">3 How Far Are You Willing to Travel?</div>
+                                    <div class="panel-body">
+                                        <form class="answers">
+                                            <input type="radio" name="question0" value="a" id="q1a">
+                                            <label for="q1a"> within 4 blocks</label>
+                                            <br/>
+                                            <input type="radio" name="question0" value="b" id="q1b">
+                                            <label for="q1b"> Walking 1 mile</label>
+                                            <br/>
+                                            <input type="radio" name="question1" value="c" id="q1c">
+                                            <label for="q1c"> 2-5 miles</label>
+                                            <br/>
+                                            <input type="radio" name="question1" value="d" id="q1d">
+                                            <label for="q1d">Greater than 5 miles </label>
+                                            <br/>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">4 What Times Are you Available?</div>
+                                        <div class="panel-body">
+                                            <!-- <div class="questiona">Select as many as you like</div> -->
+                                            <form class="answers">
+                                                <input type="radio" name="question0" value="a" id="q1a">
+                                                <label for="q1a"> I have no Contraints</label>
+                                                <br/>
+                                                <input type="radio" name="question0" value="b" id="q1b">
+                                                <label for="q1b">1 hour</label>
+                                                <br/>
+                                                <input type="radio" name="question1" value="c" id="q1c">
+                                                <label for="q1c"> 2 hours</label>
+                                                <br/>
+                                                <input type="radio" name="question1" value="d" id="q1d">
+                                                <label for="q1d">3 or more hours</label>
+                                                <br/>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <br>
+                                <div class="row">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">5 What Interests You?</div>
+                                        <div class="panel-body">
+                                            <div class="questiona">Select as many as you like</div>
+                                            <br>
+                                            <form class="answers">
+                                                <input type="radio" name="question0" value="a" id="q1a">
+                                                <label for="q1a"> Food</label>
+                                                <br/>
+                                                <input type="radio" name="question0" value="b" id="q1b">
+                                                <label for="q1b">Movie</label>
+                                                <br/>
+                                                <input type="radio" name="question1" value="c" id="q1c">
+                                                <label for="q1c">Concert</label>
+                                                <br/>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">6 For Restaurants-Help Us Narrow it Down Some</div>
+                                            <div class="panel-body">
+                                                <div class="questiona">Restaurants to Choose From</div>
+                                                <br>
+                                                <form class="answers">
+                                                    <input type="radio" name="question0" value="a" id="q1a">
+                                                    <label for="q1a">$$ Cost Matters</label>
+                                                    <br/>
+                                                    <input type="radio" name="question0" value="b" id="q1b">
+                                                    <label for="q1b">Rating Matters</label>
+                                                    <br/>
+                                                    <input type="radio" name="question1" value="c" id="q1c">
+                                                    <label for="q1c">Show Me Places (Type)</label>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <div class="row">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">7 For Movies-Help Me Narrow it Down</div>
+                                            <div class="panel-body">
+                                                <div class="questiona">Movies to Choose From</div>
+                                                <br>
+                                                <form class="answers">
+                                                    <input type="radio" name="question0" value="a" id="q1a">
+                                                    <label for="q1a">$$ Cost Matters</label>
+                                                    <br/>
+                                                    <input type="radio" name="question0" value="b" id="q1b">
+                                                    <label for="q1b">Rating Matters</label>
+                                                    <br/>
+                                                    <input type="radio" name="question1" value="c" id="q1c">
+                                                    <label for="q1c">Show Me Places (Type)</label>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">8 For Concerts-Help Me Narrow it Down</div>
+                                            <div class="panel-body">
+                                                <div class="questiona">Concerts to Choose From</div>
+                                                <br>
+                                                <form class="answers">
+                                                    <input type="radio" name="question0" value="a" id="q1a">
+                                                    <label for="q1a">$$ Cost Matters</label>
+                                                    <br/>
+                                                    <input type="radio" name="question0" value="b" id="q1b">
+                                                    <label for="q1b">Rating Matters</label>
+                                                    <br/>
+                                                    <input type="radio" name="question1" value="c" id="q1c">
+                                                    <label for="q1c">Show Me Places (Type)</label>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- jQuery -->
+                                    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.js"></script>
+                                    <!-- Script -->
+                                    <script type="text/javascript" src="gonow.js">
+                                    </script>
+</body>
+
+</html>
