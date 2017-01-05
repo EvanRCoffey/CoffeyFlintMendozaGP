@@ -1,0 +1,390 @@
+//VARIABLES
+
+//Variables to be populated no matter what
+
+var oneUser = true;
+var noTimeConstraints = false;
+var zipCode;
+var radius;
+var earliestTime;
+var onConnect = false;
+var eventful = false;
+var sports = false;
+var interests = [onConnect, eventful, sports];
+
+//If user is interested in sports, populate these variables
+
+var sportAmateur = false;
+var sportCollege = false;
+var sportProfessional = false;
+var levels = [sportAmateur, sportCollege, sportProfessional];
+
+var sportBaseball = false;
+var sportFootball = false;
+var sportBasketball = false;
+var sportSoccer = false;
+var sportHockey = false;
+var sportAutoRacing = false;
+var sportTennis = false;
+var sportFighting = false;
+var sportOthers = false;
+var sports = [sportBaseball, sportFootball, sportBasketball, sportSoccer, sportHockey, sportAutoRacing, sportTennis, sportFighting, sportOthers];
+
+//If user is interested in movies, populate these variables
+
+var genreAction = false;
+var genreComedy = false;
+var genreRomance = false;
+var genreHorror = false;
+var genreFamily = false;
+var genreDrama = false;
+var genreScifi = false;
+var genreOthers = false;
+var genres = [genreAction, genreComedy, genreRomance, genreHorror, genreFamily, genreDrama, genreScifi, genreOthers];
+
+var ratingG = false;
+var ratingPG = false;
+var ratingPG13 = false;
+var ratingR = false;
+var ratingNC17 = false;
+var ratings = [ratingG, ratingPG, ratingPG13, ratingR, ratingNC17];
+
+var latestTime;
+var maxLength;
+
+//FUNCTIONS
+
+//Validate and populate zip code variable
+function readZipCode() {
+    var x = document.getElementById("zipCode").value;
+    var isValid = /^[0-9]{5}(?:-[0-9]{4})?$/.test(x);
+    if (isValid) {
+        zipCode = x;
+        console.log("Zip code = " + zipCode);
+        //Display the next question
+        $("#questionArea").html('Please enter the number of miles you\'re willing to travel (Whole numbers 1-50, please):<br><input type="text" id="radius"><br><button onclick="readRadius()">Submit</button><br><br>')
+    }
+    else
+        $("#questionArea").html('Please enter your zip code:<br><input type="text" id="zipCode"><br><button onclick="readZipCode()">Submit</button><br><br>That ain\'t a valid zip code!  Try again!')
+}
+
+//Pull zip code with user's location
+// $(document).on("click", '.zip', function() {
+//  if (navigator.geolocation) {
+//      navigator.geolocation.getCurrentPosition(function(position) {
+//          var lat = position.coords.latitude;
+//          var lon = position.coords.longitude;
+            
+//          var queryURL = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + lon + "&key=AIzaSyB5gO1fP3gEusaJcOv3dnIEiVIEIbZKALU";
+
+//          $.ajax({ url: queryURL, method: "GET" }).done(function(response) {
+//              //THIS NEXT LINE KEEPS CHANGING!!!
+//              zipCode = response.results["0"].address_components[6].long_name;
+//              console.log("Zip code = " + zipCode);
+//              console.log(response);
+//          })
+//      })
+//      //Display the next question
+//      $("#questionArea").html('Please enter the number of miles you\'re willing to travel:<br><input type="text" id="radius"><br><button onclick="readRadius()">Submit</button><br><br>')
+//     }
+// })
+
+//Validate and populate radius variable
+function readRadius() {
+    var x = document.getElementById("radius").value;
+    if (x > 0 && x <= 50 && (x % 1 === 0)) {
+        radius = x;
+        console.log("Radius = " + radius + " miles");
+        //Display the next question
+        $("#questionArea").html('Click this button if you don\'t have any time constraints.<br><button class="noTimeConstraints">Submit</button><br><br>When are you free?<input type="range" min="0" max="23.75" value="0" step="0.25" class="timeEarliest" onchange="showEarliestTime(this.value)"/><span id="earliestTime">Earliest time: 12:00 AM </span><button class="loadEarliestTime">Submit Value</button><br><br>')
+    }
+    else
+        $("#questionArea").html('Please enter the number of miles you\'re willing to travel (Whole numbers 1-50, please):<br><input type="text" id="radius"><br><button onclick="readRadius()">Submit</button><br><br>That ain\'t a valid radius!  Try again!')
+}
+
+//Load earliest available time -> Interests
+$(document).on("click", '.loadEarliestTime', function() {
+    earliestTime = $(".timeEarliest").val();
+    console.log("Earliest time = " + convertToTime(earliestTime));
+    //Display the next question
+    $("#questionArea").html('Which of these are you in the mood for today?<br><input type="checkbox" name="interest1" id="moviesBox" value="Movies" checked>Movies<br><input type="checkbox" name="interest2" id="concertsBox" value="Concerts" checked>Concerts<br><input type="checkbox" name="interest3" id="sportsBox" value="Sports" checked>Sports<br><br><button class="interests">Click me!</button><br><br>')
+})
+
+//Sets noTimeConstraints to true -> Interests
+$(document).on("click", '.noTimeConstraints', function() {
+    noTimeConstraints = true;
+    console.log("No time constraints = " + noTimeConstraints);
+    //Display the next question
+    $("#questionArea").html('Which of these are you in the mood for today?<br><input type="checkbox" name="interest1" id="moviesBox" value="Movies" checked>Movies<br><input type="checkbox" name="interest2" id="concertsBox" value="Concerts" checked>Concerts<br><input type="checkbox" name="interest3" id="sportsBox" value="Sports" checked>Sports<br><br><button class="interests">Click me!</button><br><br>')
+})
+
+//Gets checkbox data for interests -> Sports
+$(document).on("click", '.interests', function() {
+    onConnect = document.getElementById("moviesBox").checked;
+    eventful = document.getElementById("concertsBox").checked;
+    sports = document.getElementById("sportsBox").checked;
+    interests = [onConnect, eventful, sports];
+    console.log(interests);
+
+    if (sports) {
+        //Display the first sports question
+        $("#questionArea").html('What sport(s)?<br><input type="checkbox" id="baseball" name="sport1" value="Baseball" checked>Baseball<br><input type="checkbox" id="football" name="sport2" value="Football" checked>Football<br><input type="checkbox" id="basketball" name="sport3" value="Basketball" checked>Basketball<br><input type="checkbox" id="soccer" name="sport4" value="Soccer" checked>Soccer<br><input type="checkbox" id="hockey" name="sport5" value="Hockey" checked>Hockey<br><input type="checkbox" id="autoRacing" name="sport6" value="AutoRacing" checked>Auto Racing<br><input type="checkbox" id="tennis" name="sport7" value="Tennis" checked>Tennis<br><input type="checkbox" id="fighting" name="sport7" value="Fighting" checked>Fighting<br><input type="checkbox" id="sportsOthers" name="sport8" value="Others" checked>Others<br><br><button class="sports">Click me!</button><br><br>')
+    }
+    else if(onConnect) {
+        //Display the first movies question
+        $("#questionArea").html('What rating(s)?<br><input type="checkbox" id="rating1" value="G" checked>G<br><input type="checkbox" id="rating2" value="PG" checked>PG<br><input type="checkbox" id="rating3" value="PG13" checked>PG-13<br><input type="checkbox" id="rating4" value="R" checked>R<br><input type="checkbox" id="rating5" value="NC17" checked>NC-17<br><br><button class="ratings">Click me!</button><br><br>')
+        console.log("No info for sports.");
+    }
+    else {
+        //All done!
+        $("#questionArea").html('Done collecting info.  Check the console for results.')
+        console.log("No info for movies or sports.");
+    }
+})
+
+//Gets checkbox data for sports -> Levels
+$(document).on("click", '.sports', function() {
+    sportBaseball = document.getElementById("baseball").checked;
+    sportFootball = document.getElementById("football").checked;
+    sportBasketball = document.getElementById("basketball").checked;
+    sportSoccer = document.getElementById("soccer").checked;
+    sportHockey = document.getElementById("hockey").checked;
+    sportAutoRacing = document.getElementById("autoRacing").checked;
+    sportTennis = document.getElementById("tennis").checked;
+    sportFighting = document.getElementById("fighting").checked;
+    sportOthers = document.getElementById("sportsOthers").checked;
+    sports = [sportBaseball, sportFootball, sportBasketball, sportSoccer, sportHockey, sportAutoRacing, sportTennis, sportFighting, sportOthers];
+    console.log(sports);
+    //Display the next question
+    $("#questionArea").html('What skill level(s)?<br><input type="checkbox" id="level1" value="Amateur" checked>Amateur<br><input type="checkbox" id="level2" value="College" checked>College<br><input type="checkbox" id="level3" value="Professional" checked>Professional<br><br><button class="levels">Click me!</button><br><br>')
+})
+
+//Levels -> Ratings
+$(document).on("click", '.levels', function() {
+    sportAmateur = document.getElementById("level1").checked;
+    sportCollege = document.getElementById("level2").checked;
+    sportProfessional = document.getElementById("level3").checked;
+    levels = [sportAmateur, sportCollege, sportProfessional];
+    console.log(levels);
+
+    //Either move on to movies, or go straight to results
+    if(onConnect) {
+        //Display the first movies question
+        $("#questionArea").html('What rating(s)?<br><input type="checkbox" id="rating1" value="G" checked>G<br><input type="checkbox" id="rating2" value="PG" checked>PG<br><input type="checkbox" id="rating3" value="PG13" checked>PG-13<br><input type="checkbox" id="rating4" value="R" checked>R<br><input type="checkbox" id="rating5" value="NC17" checked>NC-17<br><br><button class="ratings">Click me!</button><br><br>')
+    }
+    else {
+        //Results
+        $("#questionArea").html('Done collecting info.  Check the console for results.')
+        console.log("No info for movies.")
+    }
+})
+
+//Ratings -> Runtime
+$(document).on("click", '.ratings', function() {
+    ratingG = document.getElementById("rating1").checked;
+    ratingPG = document.getElementById("rating2").checked;
+    ratingPG13 = document.getElementById("rating3").checked;
+    ratingR = document.getElementById("rating4").checked;
+    ratingNC17 = document.getElementById("rating5").checked;
+    ratings = [ratingG, ratingPG, ratingPG13, ratingR, ratingNC17];
+    console.log(ratings)
+    //Display the next question
+    $("#questionArea").html('Maximum runtime?<br><input type="range" min="90" max="240" value="0" step="15" class="timeRun" onchange="showRunTime(this.value)"/><span id="runTime">Maximum runtime: 90 minutes </span><button class="loadRunTime">Submit Value</button><br><br>')
+})
+
+//Runtime -> Genres
+$(document).on("click", '.loadRunTime', function() {
+    maxLength = $(".timeRun").val();
+    console.log("Maximum length = " + maxLength + " minutes ");
+    //Display the next question
+    $("#questionArea").html('What genre(s)?<br><input type="checkbox" id="genre1" value="Action" checked>Action<br><input type="checkbox" id="genre2" value="Comedy" checked>Comedy<br><input type="checkbox" id="genre3" value="Romance" checked>Romance<br><input type="checkbox" id="genre4" value="Horror" checked>Horror<br><input type="checkbox" id="genre5" value="Family" checked>Family<br><input type="checkbox" id="genre6" value="Drama" checked>Drama<br><input type="checkbox" id="genre7" value="Scifi" checked>Sci-Fi<br><input type="checkbox" id="genre8" value="Others" checked>Others<br><br><button class="genres">Click me!</button><br><br>')
+})
+
+//Genres -> Endtime
+$(document).on("click", '.genres', function() {
+    genreAction = document.getElementById("genre1").checked;
+    genreComedy = document.getElementById("genre2").checked;
+    genreRomance = document.getElementById("genre3").checked;
+    genreHorror = document.getElementById("genre4").checked;
+    genreFamily = document.getElementById("genre5").checked;
+    genreDrama = document.getElementById("genre6").checked;
+    genreScifi = document.getElementById("genre7").checked;
+    genreOthers = document.getElementById("genre8").checked;
+    genres = [genreAction, genreComedy, genreRomance, genreHorror, genreFamily, genreDrama, genreScifi, genreOthers];
+    console.log(genres);
+    //Display the next question
+    $("#questionArea").html('Need to be done by a certain time?<input type="range" min="0" max="23.75" value="0" step="0.25" class="timeEnd" onchange="showEndTime(this.value)"/><span id="endTime">Endtime: 12:00 AM </span><button class="loadEndTime">Submit Value</button><br><br>')
+})
+
+//Endtime -> All done
+$(document).on("click", '.loadEndTime', function() {
+    latestTime = $(".timeEnd").val();
+    console.log("Latest time = " + convertToTime(latestTime));
+    //Results
+    $("#questionArea").html('Done collecting info.  Check the console for results.')
+})
+
+//Displays current value of slidebars
+function showEndTime(newValue) {
+    document.getElementById("endTime").innerHTML="Endtime: " + convertToTime(newValue);
+}
+function showRunTime(newValue) {
+    document.getElementById("runTime").innerHTML="Maximum runtime: " + newValue + " minutes ";
+}
+function showEarliestTime(newValue) {
+    document.getElementById("earliestTime").innerHTML="Earliest time: " + convertToTime(newValue);
+}
+
+//Converts a number to an AM/PM time.  Returns the time as a string.
+function convertToTime(num) {
+    if (num % 1 === 0) {
+        var x = num - 12;
+        var str = "";
+        if (x > 0) {
+            str = x + ":00 PM";
+        }
+        else if (x === -12) {
+            str = (x+24) + ":00 AM"
+        }
+        else if (x === 0) {
+            str = (x+12) + ":00 PM"
+        }
+        else {
+            str = (x+12) + ":00 AM"
+        }
+        return str;
+    }
+    else if (num % 1 === 0.25) {
+        var x = num - 12.25;
+        var str = "";
+        if (x > 0) {
+            str = x + ":15 PM";
+        }
+        else if (x === -12) {
+            str = (x+24) + ":15 AM"
+        }
+        else if (x === 0) {
+            str = (x+12) + ":15 PM"
+        }
+        else {
+            str = (x+12) + ":15 AM"
+        }
+        return str;
+    }
+    else if (num % 1 === 0.5) {
+        var x = num - 12.5;
+        var str = "";
+        if (x > 0) {
+            str = x + ":30 PM";
+        }
+        else if (x === -12) {
+            str = (x+24) + ":30 AM"
+        }
+        else if (x === 0) {
+            str = (x+12) + ":30 PM"
+        }
+        else {
+            str = (x+12) + ":30 AM"
+        }
+        return str;
+    }
+    else if (num % 1 === 0.75) {
+        var x = num - 12.75;
+        var str = "";
+        if (x > 0) {
+            str = x + ":45 PM";
+        }
+        else if (x === -12) {
+            str = (x+24) + ":45 AM"
+        }
+        else if (x === 0) {
+            str = (x+12) + ":45 PM"
+        }
+        else {
+            str = (x+12) + ":45 AM"
+        }
+        return str;
+    }
+}
+
+
+//[DO ALL YOUR API/JSON STUFF HERE, POPULATE VARIABLES]
+//[DISPLAY ALL RESULTS]
+
+/*
+<!--Radius entry-->
+Please enter the number of miles you're willing to travel:<br>
+<input type="text" id="radius"><br>
+<button onclick="readRadius()">Submit</button><br><br>
+
+<!--No time constraints entry-->
+Click this button if you don't have any time constraints.<br>
+<button class="noTimeConstraints">Submit</button><br><br>
+
+<!--Earliest time entry-->
+When are you free?
+<input type="range" min="0" max="23.75" value="0" step="0.25" class="timeEarliest" onchange="showEarliestTime(this.value)" />
+<span id="earliestTime">Earliest time: 0</span>
+<button class="loadEarliestTime">Submit Value</button><br><br>
+
+<!--Interests entry-->
+Which of these are you in the mood for today?<br>
+<input type="checkbox" name="interest1" value="Movies" checked>Movies<br>
+<input type="checkbox" name="interest2" value="Concerts" checked>Concerts<br>
+<input type="checkbox" name="interest3" value="Sports" checked>Sports<br><br>
+<button class="interests">Click me!</button><br><br>
+
+<!--Ratings entry-->
+What rating(s)?<br>
+<input type="checkbox" name="rating1" value="G" checked>G<br>
+<input type="checkbox" name="rating2" value="PG" checked>PG<br>
+<input type="checkbox" name="rating3" value="PG13" checked>PG-13<br>
+<input type="checkbox" name="rating4" value="R" checked>R<br>
+<input type="checkbox" name="rating5" value="NC17" checked>NC-17<br><br>
+<button class="ratings">Click me!</button><br><br>
+
+<!--Maximum runtime entry-->
+Maximum runtime?<br>
+<input type="range" min="90" max="240" value="0" step="15" class="timeRun" onchange="showRunTime(this.value)" />
+<span id="runTime">Maximum runtime: 90 minutes</span>
+<button class="loadRunTime">Submit Value</button><br><br>
+
+<!--Endtime entry-->
+Need to be done by a certain time? 
+<input type="range" min="0" max="23.75" value="0" step="0.25" class="timeEnd" onchange="showEndTime(this.value)" />
+<span id="endTime">Endtime: 0</span>
+<button class="loadEndTime">Submit Value</button><br><br>
+
+<!--Genres entry-->
+What genre(s)?<br>
+<input type="checkbox" name="genre1" value="Action" checked>Action<br>
+<input type="checkbox" name="genre2" value="Comedy" checked>Comedy<br>
+<input type="checkbox" name="genre3" value="Romance" checked>Romance<br>
+<input type="checkbox" name="genre4" value="Horror" checked>Horror<br>
+<input type="checkbox" name="genre5" value="Family" checked>Family<br>
+<input type="checkbox" name="genre6" value="Drama" checked>Drama<br>
+<input type="checkbox" name="genre7" value="Scifi" checked>Sci-Fi<br>
+<input type="checkbox" name="genre8" value="Others" checked>Others<br><br>
+<button class="genres">Click me!</button><br><br>
+
+<!--Skill levels entry-->
+What skill level(s)?<br>
+<input type="checkbox" name="level1" value="Amateur" checked>Amateur<br>
+<input type="checkbox" name="level2" value="College" checked>College<br>
+<input type="checkbox" name="level3" value="Professional" checked>Professional<br><br>
+<button class="levels">Click me!</button><br><br>
+
+<!--Sports entry-->
+What sport(s)?<br>
+<input type="checkbox" id="baseball" name="sport1" value="Baseball" checked>Baseball<br>
+<input type="checkbox" id="football" name="sport2" value="Football" checked>Football<br>
+<input type="checkbox" id="basketball" name="sport3" value="Basketball" checked>Basketball<br>
+<input type="checkbox" id="soccer" name="sport4" value="Soccer" checked>Soccer<br>
+<input type="checkbox" id="hockey" name="sport5" value="Hockey" checked>Hockey<br>
+<input type="checkbox" id="autoRacing" name="sport6" value="AutoRacing" checked>Auto Racing<br>
+<input type="checkbox" id="tennis" name="sport7" value="Tennis" checked>Tennis<br>
+<input type="checkbox" id="fighting" name="sport7" value="Fighting" checked>Fighting<br>
+<input type="checkbox" id="sportsOthers" name="sport8" value="Others" checked>Others<br>
+<button class="sports">Click me!</button><br><br>
+
+*/
