@@ -399,11 +399,84 @@ function convertToTime(num) {
 	}
 }
 
+$(document).on("click", ".onlyOneUser" ,function() {
+	var today = new Date();
+   	var dd = today.getDate();
+   	var mm = today.getMonth()+1; //January is 0!
+   	var Fdd = dd + 5
+  	var yyyy = today.getFullYear();
+  	if(dd<10){dd='0'+dd} if(mm<10){mm='0'+mm} today = yyyy+'-'+mm+'-'+dd;
+   	console.log(today);
+
+	var queryURLC = "http://api.jambase.com/events?zipCode=" + zipCode + "&radius=" + radius + "&page=0&api_key=7qxkwddawzewuq6ke5xgeus9";
+	var queryURLM = "https://data.tmsapi.com/v1.1/movies/showings?startDate="+today+"&zip=" + zipCode + "&api_key=9spw93n6wf2ug5mtd6pzphcm";
+	var queryURLS = "https://app.ticketmaster.com/discovery/v2/events.json?classificationName="+ sports+"&postalcode="+ zipCode +"&radius="+ radius +"&unit=miles&apikey=K1k9u4pDAt3XxPN91bxupADV2fxpDDGA"
+
+
+	if (eventful) { 
+	    $.ajax({ url: queryURLC, method: "GET" }).done(function(response) {
+
+	      for (i = 0 ; i < response.Events.length ; i ++ ) {
+
+	        console.log("Concerts: " + response.Events[i].Artists[0].Name);
+	      }
+	  });
+	}
+
+	if (onConnect) {
+	    $.ajax({url: queryURLM , method: "GET"}).done(function(response) {
+
+	    	console.log(response);
+	    	var jsonObj = response;
+	    	console.log(jsonObj);
+	    	for (i = 0; i < jsonObj.length; i++) {
+				titleString = "Title: " + jsonObj[i].title;
+				ratingString = "Rating: " + jsonObj[i].ratings[0].code;
+				runtimeString = "Runtime: " + jsonObj[i].runtime;
+
+				//Puts all showtimes for this movie at this theater into "showtimesString"
+				for (j = 0; j < jsonObj[i].showtimes.length; j++) {
+					showtimesString += "Theater: " + jsonObj[i].showtimes[j].theatre.name + " || Showtime: " + jsonObj[i].showtimes[j].dateTime;
+				}
+
+				genresString = "Genres: " + jsonObj[i].genres;
+				releaseDateString = "Release date: " + jsonObj[i].releaseDate;
+				directorsString = "Director(s): " + jsonObj[i].directors;
+				starsString = "Starring: " + jsonObj[i].topCast;
+				plotSummaryString = "Plot summary: " + jsonObj[i].shortDescription;
+				posterURLString = "Poster URL: " + jsonObj[i].preferredImage.uri;
+
+				console.log(titleString);
+				console.log(ratingString);
+				console.log(runtimeString);
+				console.log(showtimesString);
+				console.log(genresString);
+				console.log(releaseDateString);
+				console.log(directorsString);
+				console.log(starsString);
+				console.log(plotSummaryString);
+				console.log(posterURLString);
+			}
+
+
+	     for (i = 0 ; i < response.length ; i ++) {
+	       console.log("Movies: " + response[i].title);
+	     }
+	 });
+	}
+
+	if (sports) {$.ajax({url: queryURLS, method: "GET"}).done(function(response) {
+	     for (i = 0 ; i < response._embedded.events.length ; i++) {
+	       console.log("Events:" + response._embedded.events[i].name);
+	     }
+	    });
+	}
+
+    });
+
 //[DO ALL YOUR API/JSON STUFF HERE]
 //[DISPLAY ALL RESULTS]
 
-
-//Load JSON data into variables and log it all
 var titleString = "";
 var ratingString = "";
 var runtimeString = "";
@@ -415,32 +488,34 @@ var starsString = "";
 var plotSummaryString = "";
 var posterURLString = "";
 
-//Log relevant info from JSON for all movies
-for (var i = 0; i = JSONArray.length; i++) {
-	titleString = "Title: " + JSONArray[i].title;
-	ratingString = "Rating: " + JSONArray[i].ratings[0].code;
-	runtimeString = "Runtime: " + JSONArray[i].runtime;
+function loadMovieJSON (JSONArray) {
+	//Log relevant info from JSON for all movies
+	for (var i = 0; i = JSONArray.length; i++) {
+		titleString = "Title: " + JSONArray[i].title;
+		ratingString = "Rating: " + JSONArray[i].ratings[0].code;
+		runtimeString = "Runtime: " + JSONArray[i].runtime;
 
-	//Puts all showtimes for this movie at this theater into "showtimesString"
-	for (var j = 0; j = JSONArray[i].showtimes.length; j++) {
-		showtimesString += "Theater: " + JSONArray[i].showtimes[j].theatre.name + " || Showtime: " + JSONArray[i].showtimes[j].dateTime;
+		//Puts all showtimes for this movie at this theater into "showtimesString"
+		for (var j = 0; j = JSONArray[i].showtimes.length; j++) {
+			showtimesString += "Theater: " + JSONArray[i].showtimes[j].theatre.name + " || Showtime: " + JSONArray[i].showtimes[j].dateTime;
+		}
+
+		genresString = "Genres: " + JSONArray[i].genres;
+		releaseDateString = "Release date: " + JSONArray[i].releaseDate;
+		directorsString = "Director(s): " + JSONArray[i].directors;
+		starsString = "Starring: " + JSONArray[i].topCast;
+		plotSummaryString = "Plot summary: " + JSONArray[i].shortDescription;
+		posterURLString = "Poster URL: " + JSONArray[i].preferredImage.uri;
+
+		console.log(titleString);
+		console.log(ratingString);
+		console.log(runtimeString);
+		console.log(showtimesString);
+		console.log(genresString);
+		console.log(releaseDateString);
+		console.log(directorsString);
+		console.log(starsString);
+		console.log(plotSummaryString);
+		console.log(posterURLString);
 	}
-
-	genresString = "Genres: " + JSONArray[i].genres[];
-	releaseDateString = "Release date: " + JSONArray[i].releaseDate;
-	directorsString = "Director(s): " + JSONArray[i].directors[];
-	starsString = "Starring: " + JSONArray[i].topCast[];
-	plotSummaryString = "Plot summary: " + JSONArray[i].shortDescription;
-	posterURLString = "Poster URL: " + JSONArray[i].preferredImage.uri;
-
-	console.log(titleString);
-	console.log(ratingString);
-	console.log(runtimeString);
-	console.log(showtimesString);
-	console.log(genresString);
-	console.log(releaseDateString);
-	console.log(directorsString);
-	console.log(starsString);
-	console.log(plotSummaryString);
-	console.log(posterURLString);
 }
