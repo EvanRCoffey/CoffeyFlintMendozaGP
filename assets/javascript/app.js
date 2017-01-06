@@ -1,5 +1,3 @@
-	//VARIABLES
-
 //Variables to be populated no matter what
 
 var oneUser = true;
@@ -53,8 +51,6 @@ var ratings = [ratingG, ratingPG, ratingPG13, ratingR, ratingNC17];
 var latestTime;
 var maxLength;
 var noCurfew = false;
-
-//FUNCTIONS
 
 //Validate and populate zip code variable
 function readZipCode() {
@@ -325,5 +321,5 @@ function convertToTime(num) {
 	}
 }
 
-//[DO ALL YOUR API/JSON STUFF HERE, POPULATE VARIABLES]
+//[DO ALL YOUR API/JSON STUFF HERE]
 //[DISPLAY ALL RESULTS]
