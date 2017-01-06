@@ -1,0 +1,41 @@
+"zipCode" = zip code as a string
+"radius" = radius as a number
+
+__________________________________________________________
+
+if (noTimeConstraints === false) {
+	Filter out all events starting before "earliestTime"
+}
+
+if (noMaxRuntime === false) {
+	Filter out all movies with a runtime longer than "maxLength"
+}
+
+if (noCurfew === false) {
+	Filter out all movies with an endtime later than "latestTime"
+}
+__________________________________________________________
+
+if (onConnect === false) {
+	No movies in results!
+}
+
+if (eventful === false) {
+	No concerts in results!
+}
+
+if (sports === false) {
+	No sports in results!
+}
+
+__________________________________________________________
+
+***For all other parameters, do whichever of these two is easier
+
+if (variable === false) {
+	Do not include items with this parameter
+}
+
+if (variable) {
+	DO include items with this parameter
+}

@@ -239,6 +239,7 @@ $(document).on("click", '.loadEndTime', function() {
 //Keeps oneUser set to true -> All done
 $(document).on("click", '.onlyOneUser', function() {
 	console.log("Only one user");
+
 	//Display the next question
 	$("#questionArea").html('Done collecting info.  Check the console for results.')
 })
@@ -246,8 +247,69 @@ $(document).on("click", '.onlyOneUser', function() {
 //Changes oneUser to false -> All done
 $(document).on("click", '.anotherUser', function() {
 	oneUser = false;
-	console.log("Another user");
-	//Display the next question
+	console.log("Another user.  Logging quiz answers to Firebase.");
+	//Initialize Firebase - get this info from Firebase
+	var config = {
+	    apiKey: "AIzaSyD0PAm14WZvU0EwiknLFgyer4_lvliCrF0",
+	    authDomain: "coffeyflintmendozagp.firebaseapp.com",
+	    databaseURL: "https://coffeyflintmendozagp.firebaseio.com",
+	    storageBucket: "coffeyflintmendozagp.appspot.com",
+	    messagingSenderId: "1000692103308"
+  	};
+	firebase.initializeApp(config);
+
+	// Get a reference to the database service
+	var database = firebase.database();
+
+	//Store all data on firebase database
+	database.ref().set({
+	    FBoneUser: oneUser,
+	    FBzipCode: zipCode,
+	    FBradius: radius,
+	    FBinterests: interests,
+	    FBsports: sports,
+	    FBlevels: levels,
+	    FBgenres: genres,
+	    FBratings: ratings
+	});
+
+	if (noCurfew === false) {
+		database.ref().push({
+		    FBlatestTime: latestTime,
+		    FBnoCurfew: noCurfew
+		})
+	}
+	else if (noCurfew) {
+		database.ref().push({
+		    FBnoCurfew: noCurfew
+		})
+	}
+
+	if (noTimeConstraints === false) {
+		database.ref().push({
+		    FBearliestTime: earliestTime,
+		    FBnoTimeConstraints: noTimeConstraints
+		})
+	}
+	else if (noTimeConstraints) {
+		database.ref().push({
+		    FBnoTimeConstraints: noTimeConstraints
+		})
+	}
+
+	if (noMaxRuntime === false) {
+		database.ref().push({
+		    FBmaxLength: maxLength,
+		    FBnoMaxRuntime: noMaxRuntime
+		})
+	}
+	else if (noMaxRuntime) {
+		database.ref().push({
+		    FBnoMaxRuntime: noMaxRuntime
+		})
+	}
+
+	//All done!
 	$("#questionArea").html('Done collecting info.  Check the console for results.')
 })
 
@@ -336,6 +398,28 @@ function convertToTime(num) {
 		return str;
 	}
 }
+
+//Firebase stuff goes here
+
+/*Variables
+oneUser (bool)
+noTimeConstraints (bool)
+noMaxRuntime (bool)
+noCurfew (bool)
+
+zipCode (string?  or num)
+radius (num)
+earliestTime (num "xx.xx")
+latestTime (num "xx.xx")
+maxLength (num)
+
+All five arrays contain boolean values
+interests = [onConnect, eventful, sports];
+sports = [sportBaseball, sportFootball, sportBasketball, sportSoccer, sportHockey, sportAutoRacing, sportTennis, sportFighting, sportOthers];
+levels = [sportAmateur, sportCollege, sportProfessional];
+genres = [genreAction, genreComedy, genreRomance, genreHorror, genreFamily, genreDrama, genreScifi, genreOthers];
+ratings = [ratingG, ratingPG, ratingPG13, ratingR, ratingNC17];
+*/
 
 //[DO ALL YOUR API/JSON STUFF HERE]
 //[DISPLAY ALL RESULTS]
