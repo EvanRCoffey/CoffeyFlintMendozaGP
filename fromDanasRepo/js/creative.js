@@ -6,6 +6,7 @@ var noMaxRuntime = false;
 var zipCode;
 var radius;
 var earliestTime;
+
 var onConnect = false;
 var eventful = false;
 var sports = false;
@@ -131,8 +132,8 @@ $(document).on("click", '.interests', function() {
         console.log("No info for sports.");
     }
     else {
-        //All done!
-        $("#questionArea").html('Done collecting info.  Check the console for results.')
+        //Multiple users?
+        $("#questionArea").html('One last thing.  Do you want your results now, or would you like to see if your preferences match up with a friend, first?<button class="onlyOneUser">Results!  Now!</button><button class="anotherUser">Results!  Now!</button>')
         console.log("No info for movies or sports.");
     }
 })
@@ -162,14 +163,14 @@ $(document).on("click", '.levels', function() {
     levels = [sportAmateur, sportCollege, sportProfessional];
     console.log(levels);
 
-    //Either move on to movies, or go straight to results
+    //Either move on to movies, or go to multiple users
     if(onConnect) {
         //Display the first movies question
         $("#questionArea").html('Okay.  Here are a few questions about movies.  What rating(s) are you okay with?<br><input type="checkbox" id="rating1" value="G" checked>G<br><input type="checkbox" id="rating2" value="PG" checked>PG<br><input type="checkbox" id="rating3" value="PG13" checked>PG-13<br><input type="checkbox" id="rating4" value="R" checked>R<br><input type="checkbox" id="rating5" value="NC17" checked>NC-17<br><br><button class="ratings">Submit</button><br><br>')
     }
     else {
-        //Results
-        $("#questionArea").html('Done collecting info.  Check the console for results.')
+        //Multiple users?
+        $("#questionArea").html('One last thing.  Do you want your results now, or would you like to see if your preferences match up with a friend, first?<button class="onlyOneUser">Results!  Now!</button><button class="anotherUser">Results!  Now!</button>')
         console.log("No info for movies.")
     }
 })
@@ -219,19 +220,34 @@ $(document).on("click", '.genres', function() {
     $("#questionArea").html('Click this button if you don\'t care how late you\'ll be at the theater. <button class="noCurfew">No curfew for me!</button><br><br>Need to be done by a certain time?<input type="range" min="0" max="23.75" value="0" step="0.25" class="timeEnd" onchange="showEndTime(this.value)"/><span id="endTime">Endtime: 12:00 AM </span><button class="loadEndTime">Submit</button><br><br>')
 })
 
-//Sets noMaxRuntime to true -> Genres
+//Sets noMaxRuntime to true -> Multiple users?
 $(document).on("click", '.noCurfew', function() {
     noCurfew = true;
     console.log("No curfew = " + noCurfew);
     //Display the next question
-    $("#questionArea").html('Done collecting info.  Check the console for results.')
+    $("#questionArea").html('One last thing.  Do you want your results now, or would you like to see if your preferences match up with a friend, first?<br><br><button class="onlyOneUser">Results!  Now!</button><br><br><button class="anotherUser">Another user</button>')
 })
 
-//Endtime -> All done
+//Endtime -> Multiple users?
 $(document).on("click", '.loadEndTime', function() {
     latestTime = $(".timeEnd").val();
     console.log("Latest time = " + convertToTime(latestTime));
     //Results
+    $("#questionArea").html('One last thing.  Do you want your results now, or would you like to see if your preferences match up with a friend, first?<br><br><button class="onlyOneUser">Results!  Now!</button><br><br><button class="anotherUser">Another user</button>')
+})
+
+//Keeps oneUser set to true -> All done
+$(document).on("click", '.onlyOneUser', function() {
+    console.log("Only one user");
+    //Display the next question
+    $("#questionArea").html('Done collecting info.  Check the console for results.')
+})
+
+//Changes oneUser to false -> All done
+$(document).on("click", '.anotherUser', function() {
+    oneUser = false;
+    console.log("Another user");
+    //Display the next question
     $("#questionArea").html('Done collecting info.  Check the console for results.')
 })
 
