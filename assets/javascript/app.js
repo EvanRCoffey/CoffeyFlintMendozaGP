@@ -399,27 +399,48 @@ function convertToTime(num) {
 	}
 }
 
-//Firebase stuff goes here
-
-/*Variables
-oneUser (bool)
-noTimeConstraints (bool)
-noMaxRuntime (bool)
-noCurfew (bool)
-
-zipCode (string?  or num)
-radius (num)
-earliestTime (num "xx.xx")
-latestTime (num "xx.xx")
-maxLength (num)
-
-All five arrays contain boolean values
-interests = [onConnect, eventful, sports];
-sports = [sportBaseball, sportFootball, sportBasketball, sportSoccer, sportHockey, sportAutoRacing, sportTennis, sportFighting, sportOthers];
-levels = [sportAmateur, sportCollege, sportProfessional];
-genres = [genreAction, genreComedy, genreRomance, genreHorror, genreFamily, genreDrama, genreScifi, genreOthers];
-ratings = [ratingG, ratingPG, ratingPG13, ratingR, ratingNC17];
-*/
-
 //[DO ALL YOUR API/JSON STUFF HERE]
 //[DISPLAY ALL RESULTS]
+
+
+//Load JSON data into variables and log it all
+var titleString = "";
+var ratingString = "";
+var runtimeString = "";
+var showtimesString = "";
+var genresString = "";
+var releaseDateString = "";
+var directorsString = "";
+var starsString = "";
+var plotSummaryString = "";
+var posterURLString = "";
+
+//Log relevant info from JSON for all movies
+for (var i = 0; i = JSONArray.length; i++) {
+	titleString = "Title: " + JSONArray[i].title;
+	ratingString = "Rating: " + JSONArray[i].ratings[0].code;
+	runtimeString = "Runtime: " + JSONArray[i].runtime;
+
+	//Puts all showtimes for this movie at this theater into "showtimesString"
+	for (var j = 0; j = JSONArray[i].showtimes.length; j++) {
+		showtimesString += "Theater: " + JSONArray[i].showtimes[j].theatre.name + " || Showtime: " + JSONArray[i].showtimes[j].dateTime;
+	}
+
+	genresString = "Genres: " + JSONArray[i].genres[];
+	releaseDateString = "Release date: " + JSONArray[i].releaseDate;
+	directorsString = "Director(s): " + JSONArray[i].directors[];
+	starsString = "Starring: " + JSONArray[i].topCast[];
+	plotSummaryString = "Plot summary: " + JSONArray[i].shortDescription;
+	posterURLString = "Poster URL: " + JSONArray[i].preferredImage.uri;
+
+	console.log(titleString);
+	console.log(ratingString);
+	console.log(runtimeString);
+	console.log(showtimesString);
+	console.log(genresString);
+	console.log(releaseDateString);
+	console.log(directorsString);
+	console.log(starsString);
+	console.log(plotSummaryString);
+	console.log(posterURLString);
+}
