@@ -426,17 +426,17 @@ $(document).on("click", ".onlyOneUser" ,function() {
 	if (onConnect) {
 	    $.ajax({url: queryURLM , method: "GET"}).done(function(response) {
 
-	    	console.log(response);
 	    	var jsonObj = response;
 	    	console.log(jsonObj);
+
 	    	for (i = 0; i < jsonObj.length; i++) {
 				titleString = "Title: " + jsonObj[i].title;
 				ratingString = "Rating: " + jsonObj[i].ratings[0].code;
-				runtimeString = "Runtime: " + jsonObj[i].runtime;
+				runtimeString = "Runtime: " + jsonObj[i].runTime;
 
 				//Puts all showtimes for this movie at this theater into "showtimesString"
 				for (j = 0; j < jsonObj[i].showtimes.length; j++) {
-					showtimesString += "Theater: " + jsonObj[i].showtimes[j].theatre.name + " || Showtime: " + jsonObj[i].showtimes[j].dateTime;
+					showtimesString += "Theater: " + jsonObj[i].showtimes[j].theatre.name + ", Showtime: " + jsonObj[i].showtimes[j].dateTime + " || ";
 				}
 
 				genresString = "Genres: " + jsonObj[i].genres;
@@ -457,11 +457,6 @@ $(document).on("click", ".onlyOneUser" ,function() {
 				console.log(plotSummaryString);
 				console.log(posterURLString);
 			}
-
-
-	     for (i = 0 ; i < response.length ; i ++) {
-	       console.log("Movies: " + response[i].title);
-	     }
 	 });
 	}
 
