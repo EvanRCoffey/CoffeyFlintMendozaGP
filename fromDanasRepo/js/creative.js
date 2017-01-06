@@ -191,7 +191,7 @@ $(document).on("click", '.ratings', function() {
     ratings = [ratingG, ratingPG, ratingPG13, ratingR, ratingNC17];
     console.log(ratings)
     //Display the next question
-    $("#questionArea").html('Click this button if you don\'t care how long your movie is.<button class="noMaxRuntime">Any length is fine!</button><br><br>Or, would you like to set a maximum runtime?<br><input type="range" min="90" max="240" value="0" step="15" class="timeRun" onchange="showRunTime(this.value)"/><span id="runTime">Maximum runtime: 90 minutes </span><button class="loadRunTime">Submit</button><br><br>')
+    $("#questionArea").html('Click this button if you don\'t care how long your movie is.<button class="noMaxRuntime">Any length is fine!</button><br><br>Or, would you like to set a maximum runtime?<br><input type="range" min="90" max="240" value="0" step="5" class="timeRun" onchange="showRunTime(this.value)"/><span id="runTime">Maximum runtime: 90 minutes </span><button class="loadRunTime">Submit</button><br><br>')
 })
 
 //Sets noMaxRuntime to true -> Genres

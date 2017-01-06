@@ -64,7 +64,7 @@ function readZipCode() {
         zipCode = x;
         console.log("Zip code = " + zipCode);
         //Display the next question
-    	$("#questionArea").html('Please enter the number of miles you\'re willing to travel (Whole numbers 1-50, please):<br><input type="text" id="radius"><br><button onclick="readRadius()">Submit</button><br><br>')
+    	$("#questionArea").html('How far are you willing to travel?<br><input type="range" min="1" max="100" value="1" step="1" id="radius" onchange="showRadius(this.value)"/><span id="radiusSlidebar">I\'m willing to travel: 1 mile </span><button class="loadRadiusSlidebar">Submit</button><br><br>')
     }
     else
     	$("#questionArea").html('Please enter your zip code:<br><input type="text" id="zipCode"><br><button onclick="readZipCode()">Submit</button><br><br>That ain\'t a valid zip code!  Try again!')
@@ -191,7 +191,7 @@ $(document).on("click", '.ratings', function() {
 	ratings = [ratingG, ratingPG, ratingPG13, ratingR, ratingNC17];
 	console.log(ratings)
 	//Display the next question
-	$("#questionArea").html('Click this button if you don\'t care how long your movie is.<button class="noMaxRuntime">Any length is fine!</button><br><br>Or, would you like to set a maximum runtime?<br><input type="range" min="90" max="240" value="0" step="15" class="timeRun" onchange="showRunTime(this.value)"/><span id="runTime">Maximum runtime: 90 minutes </span><button class="loadRunTime">Submit</button><br><br>')
+	$("#questionArea").html('Click this button if you don\'t care how long your movie is.<button class="noMaxRuntime">Any length is fine!</button><br><br>Or, would you like to set a maximum runtime?<br><input type="range" min="90" max="240" value="0" step="5" class="timeRun" onchange="showRunTime(this.value)"/><span id="runTime">Maximum runtime: 90 minutes </span><button class="loadRunTime">Submit</button><br><br>')
 })
 
 //Sets noMaxRuntime to true -> Genres
@@ -251,6 +251,9 @@ function showRunTime(newValue) {
 }
 function showEarliestTime(newValue) {
 	document.getElementById("earliestTime").innerHTML="Earliest available time: " + convertToTime(newValue);
+}
+function showRadius(newValue) {
+	document.getElementById("radius").innerHTML="I'm willing to travel: " + newValue + "miles ";
 }
 
 //Converts a number with format xx.xx to an AM/PM time.  Returns the time as a string.
