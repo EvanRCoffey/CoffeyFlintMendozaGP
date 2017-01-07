@@ -19,17 +19,6 @@ var sportSoccer = [false, "Soccer"];
 var sportHockey = [false, "Hockey"];
 var sports = [sportBaseball, sportFootball, sportBasketball, sportSoccer, sportHockey];
 
-// var sportBaseball = false;
-// var sportFootball = false;
-// var sportBasketball = false;
-// var sportSoccer = false;
-// var sportHockey = false;
-// var sportAutoRacing = false;
-// var sportTennis = false;
-// var sportFighting = false;
-// var sportOthers = false;
-// var sports = [sportBaseball, sportFootball, sportBasketball, sportSoccer, sportHockey, sportAutoRacing, sportTennis, sportFighting, sportOthers];
-
 //If user is interested in movies, populate these variables
 
 var ratingG = false;
@@ -158,8 +147,33 @@ $(document).on("click", '.ratings', function() {
 $(document).on("click", '.noMaxRuntime', function() {
 	noMaxRuntime = true;
 	console.log("No maximum runtime = " + noMaxRuntime);
-	//Display the next question
-	$("#questionArea").html('One last thing.  Do you want your results now, or would you like to see if your preferences match up with a friend, first?<br><br><button class="onlyOneUser">Results!  Now!</button><br><br><button class="anotherUser">Another user</button>')
+	if (oneUser === false) {
+		onConnect = booleanTest(FBonConnect,onConnect);
+		eventful = booleanTest(FBeventful,eventful);
+		sportsAPI = booleanTest(FBsportsAPI,sportsAPI);
+		sportBaseball = booleanTest(FBsportBaseball,sportBaseball);
+		sportFootball = booleanTest(FBsportFootball,sportFootball);
+		sportBasketball = booleanTest(FBsportBasketball,sportBasketball);
+		sportSoccer = booleanTest(FBsportSoccer,sportSoccer);
+		sportHockey = booleanTest(FBsportHockey,sportHockey);
+		ratingG = booleanTest(FBratingG,ratingG);
+		ratingPG = booleanTest(FBratingPG,ratingPG);
+		ratingPG13 = booleanTest(FBratingPG13,ratingPG13);
+		ratingR = booleanTest(FBratingR,ratingR);
+		ratingNC17 = booleanTest(FBratingNC17,ratingNC17);
+		ratingUnrated = booleanTest(FBratingUnrated,ratingUnrated);
+		noMaxRuntime = booleanTest(FBnoMaxRuntime,noMaxRuntime);
+
+		if (FBmaxLength < maxLength) {
+			maxLength = FBmaxLength
+		}
+
+		performAPICalls();
+	}
+	else {
+		//Display the next question
+		$("#questionArea").html('One last thing.  Do you want your results now, or would you like to see if your preferences match up with a friend, first?<br><br><button class="onlyOneUser">Results!  Now!</button><br><br><button class="anotherUser">Another user</button>')
+	}
 })
 
 //Runtime -> Multiple users?
@@ -173,7 +187,6 @@ $(document).on("click", '.loadRunTime', function() {
 //Keeps oneUser set to true -> All done
 $(document).on("click", '.onlyOneUser', function() {
 	console.log("Only one user");
-
 	//Display the next question
 	$("#questionArea").html('Done collecting info.')
 })
@@ -197,12 +210,22 @@ $(document).on("click", '.anotherUser', function() {
 
 	//Store all data on firebase database
 	database.ref().set({
-	    FBoneUser: oneUser,
-	    FBzipCode: zipCode,
-	    FBradius: radius,
-	    FBinterests: interests,
-	    FBsports: sports,
-	    FBratings: ratings
+	    FBonConnect: onConnect,
+	    FBeventful: eventful,
+	    FBsportsAPI: sportsAPI,
+	    FBsportBaseball: sportBaseball,
+	    FBsportFootball: sportFootball,
+	    FBsportBasketball: sportBasketball,
+	    FBsportSoccer: sportSoccer,
+	    FBsportHockey: sportHockey,
+	    FBratingG: ratingG,
+	    FBratingPG: ratingPG,
+	    FBratingPG13: ratingPG13,
+	    FBratingR: ratingR,
+	    FBratingNC17: ratingNC17,
+	    FBratingUnrated: ratingUnrated,
+	    FBnoMaxRuntime: noMaxRuntime,
+	    FBmaxLength: maxLength,
 	});
 
 	if (noMaxRuntime === false) {
@@ -217,8 +240,8 @@ $(document).on("click", '.anotherUser', function() {
 		})
 	}
 
-	//All done!
-	$("#questionArea").html('Done collecting info.')
+	//Back to the beginning
+	$("#questionArea").html('Alright, User #2.  Which of these can we help YOU find today?<br><br><input type="checkbox" name="interest1" id="moviesBox" value="Movies" checked>Movies<br><input type="checkbox" name="interest2" id="concertsBox" value="Concerts" checked>Concerts<br><input type="checkbox" name="interest3" id="sportsBox" value="Sports" checked>Sports<br><br><button class="interests">Submit</button><br><br>')
 })
 
 //Displays current value of slidebars
@@ -308,6 +331,10 @@ function convertToTime(num) {
 }
 
 $(document).on("click", ".onlyOneUser" ,function() {
+	performAPICalls();
+})
+
+function performAPICalls() {
 	var today = new Date();
    	var dd = today.getDate();
    	var mm = today.getMonth()+1; //January is 0!
@@ -489,20 +516,58 @@ $(document).on("click", ".onlyOneUser" ,function() {
   		if(dd<10){dd='0'+dd} if(mm<10){mm='0'+mm} nottoday = yyyy+'-'+mm+'-'+dd;
 		var sportname = ["baseball", "football", "basketball", "soccer","hockey"]
 		for (i = 0 ; i < sports.length ; i++){
-			if (sports[i]) {
-				var queryURLS = "https://app.ticketmaster.com/discovery/v2/events.json?endDateTime"+nottoday +"&classificationName="+ sportname[i]+"&dmaId=222&apikey=K1k9u4pDAt3XxPN91bxupADV2fxpDDGA"
-				$.ajax({url: queryURLS, method: "GET"}).done(function(response) {
-  					for (i = 0 ; i < 1 ; i++) {
-    					console.log(response._embedded.events[i].name);
-  					}
- 				});	
-			}
-			else {
-				console.log("no" + sportname[i]);
-			}
-		}
-	}
-})
+            if (sports[i]) {
+                var queryURLS = "https://app.ticketmaster.com/discovery/v2/events.json?endDateTime"+nottoday +"&classificationName="+ sportname[i]+"&dmaId=222&apikey=K1k9u4pDAt3XxPN91bxupADV2fxpDDGA"
+                $.ajax({url: queryURLS, method: "GET"}).done(function(response) {
+                     for (i = 0 ; i < 1 ; i++) {
+                         if (response.page.totalPages === 0){
+                             $("#questionArea").append("<br><br>no showtimes available for " + sportname[i]);
+                         }
+                       else {
+                           $("#questionArea").append("<br><br>" + response._embedded.events[i].name);
+                       }
+                       }
+                     
+                });    
+            }
+            else {
+                $("#questionArea").append("<br><br>user doesn't want " + sportname[i]);
+            }
+        }
+    }
+}
 
-//[DO ALL YOUR API/JSON STUFF HERE]
-//[DISPLAY ALL RESULTS]
+
+//Takes two booleans.  Returns true if they're both true, false otherwise.
+function booleanTest(booleanOne,booleanTwo) {
+	if (booleanOne && booleanTwo) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+/*Testing user2 input versus user1's input (which is on firebase)
+
+onConnect = booleanTest(FBonConnect,onConnect);
+eventful = booleanTest(FBeventful,eventful);
+sportsAPI = booleanTest(FBsportsAPI,sportsAPI);
+sportBaseball = booleanTest(FBsportBaseball,sportBaseball);
+sportFootball = booleanTest(FBsportFootball,sportFootball);
+sportBasketball = booleanTest(FBsportBasketball,sportBasketball);
+sportSoccer = booleanTest(FBsportSoccer,sportSoccer);
+sportHockey = booleanTest(FBsportHockey,sportHockey);
+ratingG = booleanTest(FBratingG,ratingG);
+ratingPG = booleanTest(FBratingPG,ratingPG);
+ratingPG13 = booleanTest(FBratingPG13,ratingPG13);
+ratingR = booleanTest(FBratingR,ratingR);
+ratingNC17 = booleanTest(FBratingNC17,ratingNC17);
+ratingUnrated = booleanTest(FBratingUnrated,ratingUnrated);
+noMaxRuntime = booleanTest(FBnoMaxRuntime,noMaxRuntime);
+
+if (FBmaxLength < maxLength) {
+	maxLength = FBmaxLength
+}
+
+*/
