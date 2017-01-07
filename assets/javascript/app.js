@@ -6,7 +6,7 @@ var radius;
 var onConnect = false;
 var eventful = false;
 var sportsAPI = false;
-var interests = [onConnect, eventful, sports];
+var interests = [onConnect, eventful, sportsAPI];
 
 var oneUser = true;
 
@@ -37,7 +37,8 @@ var ratingPG = false;
 var ratingPG13 = false;
 var ratingR = false;
 var ratingNC17 = false;
-var ratings = [ratingG, ratingPG, ratingPG13, ratingR, ratingNC17];
+var ratingUnrated = false;
+var ratings = [ratingG, ratingPG, ratingPG13, ratingR, ratingNC17, ratingUnrated];
 
 var noMaxRuntime = false;
 var maxLength;
@@ -100,21 +101,21 @@ $(document).on("click", '.interests', function() {
 	onConnect = document.getElementById("moviesBox").checked;
 	eventful = document.getElementById("concertsBox").checked;
 	sportsAPI = document.getElementById("sportsBox").checked;
-	interests = [onConnect, eventful, sports];
+	interests = [onConnect, eventful, sportsAPI];
 	console.log(interests);
 
-	if (sports) {
+	if (sportsAPI) {
 		//Display the first sports question
-		$("#questionArea").html('Okay.  Let\'s start with sports.  What sport(s) are you okay with?<br><br><input type="checkbox" id="baseball" name="sport1" value="Baseball" checked>Baseball<br><input type="checkbox" id="football" name="sport2" value="Football" checked>Football<br><input type="checkbox" id="basketball" name="sport3" value="Basketball" checked>Basketball<br><input type="checkbox" id="soccer" name="sport4" value="Soccer" checked>Soccer<br><input type="checkbox" id="hockey" name="sport5" value="Hockey" checked>Hockey<br><br><button class="sports">Submit</button><br><br>')
+		$("#questionArea").html('Okay.  What sport(s) are you okay with?<br><br><input type="checkbox" id="baseball" name="sport1" value="Baseball" checked>Baseball<br><input type="checkbox" id="football" name="sport2" value="Football" checked>Football<br><input type="checkbox" id="basketball" name="sport3" value="Basketball" checked>Basketball<br><input type="checkbox" id="soccer" name="sport4" value="Soccer" checked>Soccer<br><input type="checkbox" id="hockey" name="sport5" value="Hockey" checked>Hockey<br><br><button class="sports">Submit</button><br><br>')
 	}
 	else if(onConnect) {
 		//Display the first movies question
-		$("#questionArea").html('Okay.  Now for movies.  What rating(s) are you okay with?<br><br><input type="checkbox" id="rating1" value="G" checked>G<br><input type="checkbox" id="rating2" value="PG" checked>PG<br><input type="checkbox" id="rating3" value="PG13" checked>PG-13<br><input type="checkbox" id="rating4" value="R" checked>R<br><input type="checkbox" id="rating5" value="NC17" checked>NC-17<br><br><button class="ratings">Submit</button><br><br>')
+		$("#questionArea").html('Okay.  What rating(s) are you okay with?<br><br><input type="checkbox" id="rating1" value="G" checked>G<br><input type="checkbox" id="rating2" value="PG" checked>PG<br><input type="checkbox" id="rating3" value="PG13" checked>PG-13<br><input type="checkbox" id="rating4" value="R" checked>R<br><input type="checkbox" id="rating5" value="NC17" checked>NC-17<br><input type="checkbox" id="rating6" value="Unrated" checked>Unrated<br><br><button class="ratings">Submit</button><br><br>')
 		console.log("No info for sports.");
 	}
 	else {
 		//Multiple users?
-		$("#questionArea").html('One last thing.  Do you want your results now, or would you like to see if your preferences match up with a friend, first?<button class="onlyOneUser">Results!  Now!</button><button class="anotherUser">Results!  Now!</button>')
+		$("#questionArea").html('One last thing.  Do you want your results now, or would you like to see if your preferences match up with a friend, first?<br><br><button class="onlyOneUser">Results!  Now!</button><br><br><button class="anotherUser">Another user</button>')
 		console.log("No info for movies or sports.");
 	}
 })
@@ -131,11 +132,11 @@ $(document).on("click", '.sports', function() {
 	//Either move on to movies, or go to multiple users?
 	if(onConnect) {
 		//Display the first movies question
-		$("#questionArea").html('Okay.  Now for movies.  What rating(s) are you okay with?<br><br><input type="checkbox" id="rating1" value="G" checked>G<br><input type="checkbox" id="rating2" value="PG" checked>PG<br><input type="checkbox" id="rating3" value="PG13" checked>PG-13<br><input type="checkbox" id="rating4" value="R" checked>R<br><input type="checkbox" id="rating5" value="NC17" checked>NC-17<br><br><button class="ratings">Submit</button><br><br>')
+		$("#questionArea").html('Okay.  Now for movies.  What rating(s) are you okay with?<br><br><input type="checkbox" id="rating1" value="G" checked>G<br><input type="checkbox" id="rating2" value="PG" checked>PG<br><input type="checkbox" id="rating3" value="PG13" checked>PG-13<br><input type="checkbox" id="rating4" value="R" checked>R<br><input type="checkbox" id="rating5" value="NC17" checked>NC-17<br><input type="checkbox" id="rating6" value="Unrated" checked>Unrated<br><br><button class="ratings">Submit</button><br><br>')
 	}
 	else {
 		//Multiple users?
-		$("#questionArea").html('One last thing.  Do you want your results now, or would you like to see if your preferences match up with a friend, first?<button class="onlyOneUser">Results!  Now!</button><button class="anotherUser">Results!  Now!</button>')
+		$("#questionArea").html('One last thing.  Do you want your results now, or would you like to see if your preferences match up with a friend, first?<br><br><button class="onlyOneUser">Results!  Now!</button><br><br><button class="anotherUser">Another user</button>')
 		console.log("No info for movies.")
 	}})
 
@@ -146,10 +147,11 @@ $(document).on("click", '.ratings', function() {
 	ratingPG13 = document.getElementById("rating3").checked;
 	ratingR = document.getElementById("rating4").checked;
 	ratingNC17 = document.getElementById("rating5").checked;
-	ratings = [ratingG, ratingPG, ratingPG13, ratingR, ratingNC17];
+	ratingUnrated = document.getElementById("rating6").checked;
+	ratings = [ratingG, ratingPG, ratingPG13, ratingR, ratingNC17, ratingUnrated];
 	console.log(ratings)
 	//Display the next question
-	$("#questionArea").html('Click this button if you don\'t care how long your movie is. <button class="noMaxRuntime">Any length is fine!</button><br><br>Or, would you like to set a maximum runtime?<br><input type="range" min="90" max="240" value="0" step="5" class="timeRun" onchange="showRunTime(this.value)"/><span id="runTime">Maximum runtime: 90 minutes </span><button class="loadRunTime">Submit</button><br><br>')
+	$("#questionArea").html('Click this button if you don\'t care how long your movie is. <button class="noMaxRuntime">Any length is fine!</button><br><br>Or, would you like to set a maximum runtime?<br><input type="range" min="90" max="240" value="120" step="5" class="timeRun" onchange="showRunTime(this.value)"/><span id="runTime">Maximum runtime: 120 minutes </span><button class="loadRunTime">Submit</button><br><br>')
 })
 
 //Sets noMaxRuntime to true -> Multiple users?
@@ -173,7 +175,7 @@ $(document).on("click", '.onlyOneUser', function() {
 	console.log("Only one user");
 
 	//Display the next question
-	$("#questionArea").html('Done collecting info.  Check the console for results.')
+	$("#questionArea").html('Done collecting info.')
 })
 
 //Changes oneUser to false -> All done
@@ -200,34 +202,8 @@ $(document).on("click", '.anotherUser', function() {
 	    FBradius: radius,
 	    FBinterests: interests,
 	    FBsports: sports,
-	    FBlevels: levels,
-	    FBgenres: genres,
 	    FBratings: ratings
 	});
-
-	if (noCurfew === false) {
-		database.ref().push({
-		    FBlatestTime: latestTime,
-		    FBnoCurfew: noCurfew
-		})
-	}
-	else if (noCurfew) {
-		database.ref().push({
-		    FBnoCurfew: noCurfew
-		})
-	}
-
-	if (noTimeConstraints === false) {
-		database.ref().push({
-		    FBearliestTime: earliestTime,
-		    FBnoTimeConstraints: noTimeConstraints
-		})
-	}
-	else if (noTimeConstraints) {
-		database.ref().push({
-		    FBnoTimeConstraints: noTimeConstraints
-		})
-	}
 
 	if (noMaxRuntime === false) {
 		database.ref().push({
@@ -242,7 +218,7 @@ $(document).on("click", '.anotherUser', function() {
 	}
 
 	//All done!
-	$("#questionArea").html('Done collecting info.  Check the console for results.')
+	$("#questionArea").html('Done collecting info.')
 })
 
 //Displays current value of slidebars
@@ -340,30 +316,19 @@ $(document).on("click", ".onlyOneUser" ,function() {
   	if(dd<10){dd='0'+dd} if(mm<10){mm='0'+mm} today = yyyy+'-'+mm+'-'+dd;
    	console.log("Today is " + today);
 
-	var queryURLC = "http://api.jambase.com/events?zipCode=" + zipCode + "&radius=" + radius + "&page=0&api_key=7qxkwddawzewuq6ke5xgeus9";
+	var queryURLC = "http://api.jambase.com/events?zipCode=" + zipCode + "&radius=" + radius + "&page=0&api_key=rm4t3ad3hchkapjq28uv75u6";
 	var queryURLM = "https://data.tmsapi.com/v1.1/movies/showings?startDate="+today+"&zip=" + zipCode + "&radius=" + radius + "&api_key=9spw93n6wf2ug5mtd6pzphcm";
-	var queryURLS = "https://app.ticketmaster.com/discovery/v2/events.json?classificationName="+ sports+"&postalcode="+ zipCode +"&radius="+ radius +"&unit=miles&apikey=K1k9u4pDAt3XxPN91bxupADV2fxpDDGA"
 
 	//Eventful API Call
 	if (eventful) { 
 	    $.ajax({ url: queryURLC, method: "GET" }).done(function(response) {
 
-	      for (i = 0 ; i < ((response.Events.length + 10) - (response.Events.length) ) ; i ++ ) {
-
-	        console.log("Concerts: " + response.Events[i].Artists[0].Name + " At: " + response.Events[i].Venue.Name + " " + response.Events[i].Venue.Address);
-	      }
-	  });
+	    	for (i = 0 ; i < ((response.Events.length + 10) - (response.Events.length) ) ; i ++ ) {
+	      		//console.log("Concerts: " + response.Events[i].Artists[0].Name + " At: " + response.Events[i].Venue.Name + " " + response.Events[i].Venue.Address);
+	      		$("#questionArea").append("<br><br>Concerts: " + response.Events[i].Artists[0].Name + " At: " + response.Events[i].Venue.Name + " " + response.Events[i].Venue.Address);
+	    	}
+	  	});
 	}
-
-	//Eventful API Call
-	// if (eventful) { 
-	//     $.ajax({ url: queryURLC, method: "GET" }).done(function(response) {
-
-	//       	for (i = 0 ; i < response.Events.length ; i ++ ) {
-	//         	console.log("Concerts: " + response.Events[i].Artists[0].Name);
-	//       	}
-	//   	});
-	// }
 
 	//onConnect API Call
 	if (onConnect) {
@@ -390,44 +355,47 @@ $(document).on("click", ".onlyOneUser" ,function() {
 				var starsString = "Starring: " + jsonObj[i].topCast;
 				var plotSummaryString = "Plot summary: " + jsonObj[i].shortDescription;
 
+			   	var ratingMatch = false;
+				var runtimeMatch = false;
+
 				//IF THE MOVIE MATCHES RATING, RATINGMATCH=TRUE
-				var ratingMatch = false
 				if ('ratings' in jsonObj[i]) {
 					if (jsonObj[i].ratings[0].code === "G") {
 						if (ratingG) {
 							ratingMatch = true;
 						}
 					}
-					if (jsonObj[i].ratings[0].code === "PG") {
+					else if (jsonObj[i].ratings[0].code === "PG") {
 						if (ratingPG) {
 							ratingMatch = true;
 						}
 					}
-					if (jsonObj[i].ratings[0].code === "PG-13") {
+					else if (jsonObj[i].ratings[0].code === "PG-13") {
 						if (ratingPG13) {
 							ratingMatch = true;
 						}
 					}
-					if (jsonObj[i].ratings[0].code === "R") {
+					else if (jsonObj[i].ratings[0].code === "R") {
 						if (ratingR) {
 							ratingMatch = true;
 						}
 					}
-					if (jsonObj[i].ratings[0].code === "NC-17") {
+					else if (jsonObj[i].ratings[0].code === "NC-17") {
 						if (ratingNC17) {
 							ratingMatch = true;
 						}
 					}
 				}
 				else {
-					ratingMatch = true;
-					console.log("No rating for this film.")
+					if (ratingUnrated) {
+						ratingMatch = true;
+					}
 				}
+
 
 				//IF THE RUNTIME IS LOWER THAN USER'S MAXLENGTH, OR IF NOTIMECONSTRAINTS IS TRUE, RUNTIMEMATCH=TRUE
 				if ('runTime' in jsonObj[i]) {
 					if (noMaxRuntime === false) {
-						var runtimeMatch = false;
 						var runtimeArray = [];
 						runtimeArray = jsonObj[i].runTime;
 						runtimeArray.split('');
@@ -465,9 +433,15 @@ $(document).on("click", ".onlyOneUser" ,function() {
 						if (runtimeMinutes <= maxLength) {
 							runtimeMatch = true;
 						}
-						console.log("Runtime in minutes = " + runtimeMinutes);
 					}
 					else {
+						if (noMaxRuntime) {
+							runtimeMatch = true;
+						}
+					}
+				}
+				else {
+					if (noMaxRuntime) {
 						runtimeMatch = true;
 					}
 				}
@@ -506,40 +480,28 @@ $(document).on("click", ".onlyOneUser" ,function() {
 	}
 
 	//Sports API Call
-	// if (sports) {
-	// 	var sportname = ["baseball", "football", "basketball", "soccer", "hockey"]
-	// 	for (i = 0 ; i < sportname.length ; i++){
-	// 		if (sportname[i]) {
-	// 			var queryURLS = "https://app.ticketmaster.com/discovery/v2/events.json?classificationName="+ sportname[i]+"&dmaId=222&apikey=K1k9u4pDAt3XxPN91bxupADV2fxpDDGA"
-	// 			$.ajax({url: queryURLS, method: "GET"}).done(function(response) {
-	//       			for (i = 0 ; i < response._embedded.events.length ; i++) {
-	//         			console.log(response._embedded.events[i].name);
-	//       			}
-	//      		});
-	// 		}
-	// 		else {
-	// 			console.log("no" + sportname[i]);
-	// 		}
-	// 	}
-	// }
-
 	if (sportsAPI) {
-		var sportname = ["baseball", "football", "basketball", "soccer", "hockey"]
+		var nottoday = new Date();
+   		var dd = nottoday.getDate()+1;
+   		var mm = nottoday.getMonth()+1; //January is 0!
+   		var Fdd = dd + 5
+  		var yyyy = nottoday.getFullYear();
+  		if(dd<10){dd='0'+dd} if(mm<10){mm='0'+mm} nottoday = yyyy+'-'+mm+'-'+dd;
+		var sportname = ["baseball", "football", "basketball", "soccer","hockey"]
 		for (i = 0 ; i < sports.length ; i++){
 			if (sports[i]) {
-				var queryURLS = "https://app.ticketmaster.com/discovery/v2/events.json?classificationName="+ sportname[i]+"&dmaId=222&apikey=K1k9u4pDAt3XxPN91bxupADV2fxpDDGA"
+				var queryURLS = "https://app.ticketmaster.com/discovery/v2/events.json?endDateTime"+nottoday +"&classificationName="+ sportname[i]+"&dmaId=222&apikey=K1k9u4pDAt3XxPN91bxupADV2fxpDDGA"
 				$.ajax({url: queryURLS, method: "GET"}).done(function(response) {
-      				for (i = 0 ; i < response._embedded.events.length ; i++) {
-        				console.log(response._embedded.events[i].name);
-        			}
-     			});	
+  					for (i = 0 ; i < 1 ; i++) {
+    					console.log(response._embedded.events[i].name);
+  					}
+ 				});	
 			}
 			else {
 				console.log("no" + sportname[i]);
 			}
 		}
 	}
-
 })
 
 //[DO ALL YOUR API/JSON STUFF HERE]
