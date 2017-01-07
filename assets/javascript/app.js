@@ -54,11 +54,11 @@ function readZipCode() {
     	$("#questionArea").html('How far are you willing to travel?<br><input type="range" min="1" max="50" value="20" step="1" class="radius" onchange="showRadius(this.value)"/><span id="radiusSlidebar">I\'m willing to travel: 20 miles </span><button class="loadRadiusSlidebar">Submit</button><br><br>')
     }
     else
-    	$("#questionArea").html('Please enter your zip code:<br><input type="text" id="zipCode"><br><button onclick="readZipCode()">Submit</button><br><br>That ain\'t a valid zip code!  Try again, or let us find your location <br><button class="zip"> Get ZIP </button><br><br>')
+    	$("#questionArea").html('Please enter your zip code:<br><input type="text" id="zipCode"><br><button onclick="readZipCode()">Submit</button><br><br>That ain\'t a valid zip code!  Try again, or let us find your location <br><button id="zip"  class="btn btn-danger">Get ZIP </button><br><br>')
 }
 
 //Pull zip code with user's location
-$(document).on("click", '.zip', function() {
+$(document).on("click", '#zip', function() {
 	if (navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(function(position) {
 			var lat = position.coords.latitude;
