@@ -46,7 +46,7 @@
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand page-scroll" href="#page-top"><img src="img/Findlogo12.jpg" alt="Find's Logo" style="width:60px;height:35px;"></a>
+                <a class="navbar-brand page-scroll" href="#page-top"><img src="img/Findlogo16.jpg" alt="Find's Logo" style="width:60px;height:33px;"></a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -77,8 +77,7 @@
                 <p>What to do?  So many choices!  Figure out what to do - Take the quiz!</p>
                 <a href="#about" class="btn btn-primary btn-xl page-scroll">Go to Quiz</a>
             </div>
-        </div>
-    </header>
+        </div></header>
     <section class="bg-primary" id="about">
         <div class="container">
             <div class="row">
@@ -87,19 +86,30 @@
                     <hr class="light">
                     <p class="text-faded">Plan your night out. We'll help you figure it out.</p>
                     <hr class="light">
-        <div class="row" id="questionArea">
-            <!--Zip code manual entry-->
-            Please enter your zip code:<br>
-            <input type="text" id="zipCode"><br>
-            <button onclick="readZipCode()">Submit</button><br><br>
-
-            <!--Button to pull user's ZIP-->
-            OR let us find your location by clicking this button:<br>
-            <button id="zip"  class="btn btn-danger"> Get ZIP </button><br><br>
-        </div>
-        </div>
+                    <div class="row" id="questionArea">
+                        <!--Zip code manual entry-->
+                        <p class="text-faded">Please enter your zip code:</p>
+                        <!--  <br> -->
+                        <input type="text" id="zipCode" class="submit1" color="black">
+                        <br>
+                        <br>
+                        <button onclick="readZipCode()" class="btn btn-danger">Submit</button>
+                        <br>
+                        <br>
+                        <hr class="light">
+                        <!-- <br> -->
+                        <!--Button to pull user's ZIP-->
+                        <p class="text-faded">
+                            OR let us find your location by clicking this button:</p>
+                        <!-- <br> -->
+                        <button id="zip" class="btn btn-danger"> Get ZIP </button>
+                        <br>
+                        <br>
+                    </div>
+                </div>
     </section>
-   
+     
+   <!-- This is Contact Section-Page 3 -->
                               
                             </div>
                         </div>
@@ -119,14 +129,15 @@
                                             </div>
                                             <div class="category-name">
                                                 Sports
+                                                <!-- images provided by pexels.com free photos online! -->
                                             </div>
                                         </div>
                                     </div>
                                 </a>
                             </div>
                             <div class="col-lg-4 col-sm-6">
-                                <a href="img/portfolio/thumbnails/movies3.jpg" class="portfolio-box">
-                                    <img src="img/portfolio/thumbnails/movies3.jpg" class="img-responsive" alt="">
+                                <a href="img/movietheater.jpeg" class="portfolio-box">
+                                    <img src="img/movietheater.jpeg" class="img-responsive" alt="">
                                     <div class="portfolio-box-caption">
                                         <div class="portfolio-box-caption-content">
                                             <div class="project-category text-faded">
@@ -134,6 +145,7 @@
                                             </div>
                                             <div class="category-name">
                                                 Movie
+                                                <!-- movietheater.jpeg is standard licensed by adobe -->
                                             </div>
                                         </div>
                                     </div>
@@ -149,6 +161,7 @@
                                             </div>
                                             <div class="category-name">
                                                 Concert
+                                                <!-- images provided by pexels.com free photos online! -->
                                             </div>
                                         </div>
                                     </div>
@@ -157,14 +170,7 @@
                         </div>
                     </div>
                 </section>
-              <!--   <aside class="bg-dark">
-                    <div class="container text-center">
-                        <div class="call-to-action">
-                            <h2>Find Your Next Adventure Today!</h2>
-                            <a href="http://startbootstrap.com/template-overviews/creative/" class="btn btn-default btn-xl sr-button">Locate Now!</a>
-                        </div>
-                    </div>
-                </aside> -->
+             
                 <section id="contact">
                     <div class="container">
                         <div class="row">
