@@ -68,7 +68,7 @@ function readZipCode() {
         $("#questionArea").html('How far are you willing to travel?<br><input type="range" min="1" max="50" value="20" step="1" class="radius" onchange="showRadius(this.value)"/><span id="radiusSlidebar">I\'m willing to travel: 20 miles </span><button class="loadRadiusSlidebar">Submit</button><br><br>')
     }
     else
-        $("#questionArea").html('Please enter your zip code:<br><input type="text" id="zipCode"><br><button onclick="readZipCode()">Submit</button><br><br>That ain\'t a valid zip code!  Try again, or let us find your location <br><button id="zip"  class="btn btn-danger">Get ZIP </button><br><br>')
+        $("#questionArea").html('Please enter your zip code:<br><input type="text" id="zipCode"><br><button onclick="readZipCode()" class="btn btn-danger">Submit</button><br><br>That ain\'t a valid zip code!  Try again, or let us find your location <br><button id="zip"  class="btn btn-danger">Get ZIP </button><br><br>')
 }
 
 //Pull zip code with user's location
@@ -194,7 +194,7 @@ $(document).on("click", '.noMaxRuntime', function() {
         }
 
         console.log("two users!!!!!!");
-        $("#questionArea").html('Done collecting info.');
+        $("#questionArea").html('<h3>Done collecting info.</h3>');
         performAPICalls();
     }
     else {
@@ -215,7 +215,7 @@ $(document).on("click", '.loadRunTime', function() {
 $(document).on("click", '.onlyOneUser', function() {
     console.log("Only one user");
     //Display the next question
-    $("#questionArea").html('Done collecting info.')
+    $("#questionArea").html('<h3>Done collecting info.</h3>')
     performAPICalls();
 })
 
