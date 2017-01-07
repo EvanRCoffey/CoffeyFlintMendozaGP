@@ -1,46 +1,36 @@
 //Variables to be populated no matter what
 
-var oneUser = true;
-var noTimeConstraints = false;
-var noMaxRuntime = false;
 var zipCode;
 var radius;
-var earliestTime;
 
 var onConnect = false;
 var eventful = false;
-var sports = false;
+var sportsAPI = false;
 var interests = [onConnect, eventful, sports];
+
+var oneUser = true;
 
 //If user is interested in sports, populate these variables
 
-var sportAmateur = false;
-var sportCollege = false;
-var sportProfessional = false;
-var levels = [sportAmateur, sportCollege, sportProfessional];
+var sportBaseball = [false, "Baseball"];
+var sportFootball = [false, "Football"];
+var sportBasketball = [false, "Basketball"];
+var sportSoccer = [false, "Soccer"];
+var sportHockey = [false, "Hockey"];
+var sports = [sportBaseball, sportFootball, sportBasketball, sportSoccer, sportHockey];
 
-var sportBaseball = false;
-var sportFootball = false;
-var sportBasketball = false;
-var sportSoccer = false;
-var sportHockey = false;
-var sportAutoRacing = false;
-var sportTennis = false;
-var sportFighting = false;
-var sportOthers = false;
-var sports = [sportBaseball, sportFootball, sportBasketball, sportSoccer, sportHockey, sportAutoRacing, sportTennis, sportFighting, sportOthers];
+// var sportBaseball = false;
+// var sportFootball = false;
+// var sportBasketball = false;
+// var sportSoccer = false;
+// var sportHockey = false;
+// var sportAutoRacing = false;
+// var sportTennis = false;
+// var sportFighting = false;
+// var sportOthers = false;
+// var sports = [sportBaseball, sportFootball, sportBasketball, sportSoccer, sportHockey, sportAutoRacing, sportTennis, sportFighting, sportOthers];
 
 //If user is interested in movies, populate these variables
-
-var genreAction = false;
-var genreComedy = false;
-var genreRomance = false;
-var genreHorror = false;
-var genreFamily = false;
-var genreDrama = false;
-var genreScifi = false;
-var genreOthers = false;
-var genres = [genreAction, genreComedy, genreRomance, genreHorror, genreFamily, genreDrama, genreScifi, genreOthers];
 
 var ratingG = false;
 var ratingPG = false;
@@ -49,9 +39,8 @@ var ratingR = false;
 var ratingNC17 = false;
 var ratings = [ratingG, ratingPG, ratingPG13, ratingR, ratingNC17];
 
-var latestTime;
+var noMaxRuntime = false;
 var maxLength;
-var noCurfew = false;
 
 //Validate and populate zip code variable
 function readZipCode() {
@@ -61,7 +50,7 @@ function readZipCode() {
         zipCode = x;
         console.log("Zip code = " + zipCode);
         //Display the next question
-        $("#questionArea").html('How far are you willing to travel?<br><input type="range" min="1" max="100" value="1" step="1" class="radius" onchange="showRadius(this.value)"/><span id="radiusSlidebar">I\'m willing to travel: 1 mile </span><button class="loadRadiusSlidebar">Submit</button><br><br>')
+        $("#questionArea").html('How far are you willing to travel?<br><input type="range" min="1" max="50" value="20" step="1" class="radius" onchange="showRadius(this.value)"/><span id="radiusSlidebar">I\'m willing to travel: 20 miles </span><button class="loadRadiusSlidebar">Submit</button><br><br>')
     }
     else
         $("#questionArea").html('Please enter your zip code:<br><input type="text" id="zipCode"><br><button onclick="readZipCode()">Submit</button><br><br>That ain\'t a valid zip code!  Try again, or let us find your location <br><button class="zip"> Get ZIP </button><br><br>')
@@ -86,7 +75,7 @@ $(document).on("click", '.zip', function() {
             })
         })
         //Display the next question
-        $("#questionArea").html('How far are you willing to travel?<br><input type="range" min="1" max="100" value="1" step="1" class="radius" onchange="showRadius(this.value)"/><span id="radiusSlidebar">I\'m willing to travel: 1 mile </span><button class="loadRadiusSlidebar">Submit</button><br><br>')
+        $("#questionArea").html('How far are you willing to travel?<br><input type="range" min="1" max="50" value="20" step="1" class="radius" onchange="showRadius(this.value)"/><span id="radiusSlidebar">I\'m willing to travel: 20 miles </span><button class="loadRadiusSlidebar">Submit</button><br><br>')
     }
 })
 
@@ -95,15 +84,7 @@ $(document).on("click", '.loadRadiusSlidebar', function() {
     radius = $(".radius").val();
     console.log("Willing to travel " + radius + " miles");
     //Display the next question
-    $("#questionArea").html('Click this button if you don\'t have any time constraints. <button class="noTimeConstraints">I\'m free now!</button><br><br>Not available until later?  When will you be free?<input type="range" min="0" max="23.75" value="0" step="0.25" class="timeEarliest" onchange="showEarliestTime(this.value)"/><span id="earliestTime">Earliest available time: 12:00 AM </span><button class="loadEarliestTime">Submit</button><br><br>')
-})
-
-//Load earliest available time -> Interests
-$(document).on("click", '.loadEarliestTime', function() {
-    earliestTime = $(".timeEarliest").val();
-    console.log("Earliest available time = " + convertToTime(earliestTime));
-    //Display the next question
-    $("#questionArea").html('Which of these can we help you find today?<br><input type="checkbox" name="interest1" id="moviesBox" value="Movies" checked>Movies<br><input type="checkbox" name="interest2" id="concertsBox" value="Concerts" checked>Concerts<br><input type="checkbox" name="interest3" id="sportsBox" value="Sports" checked>Sports<br><br><button class="interests">Submit</button><br><br>')
+    $("#questionArea").html('Which of these can we help you find today?<br><br><input type="checkbox" name="interest1" id="moviesBox" value="Movies" checked>Movies<br><input type="checkbox" name="interest2" id="concertsBox" value="Concerts" checked>Concerts<br><input type="checkbox" name="interest3" id="sportsBox" value="Sports" checked>Sports<br><br><button class="interests">Submit</button><br><br>')
 })
 
 //Sets noTimeConstraints to true -> Interests
@@ -111,24 +92,24 @@ $(document).on("click", '.noTimeConstraints', function() {
     noTimeConstraints = true;
     console.log("No time constraints = " + noTimeConstraints);
     //Display the next question
-    $("#questionArea").html('Which of these can we help you find today?<br><input type="checkbox" name="interest1" id="moviesBox" value="Movies" checked>Movies<br><input type="checkbox" name="interest2" id="concertsBox" value="Concerts" checked>Concerts<br><input type="checkbox" name="interest3" id="sportsBox" value="Sports" checked>Sports<br><br><button class="interests">Submit</button><br><br>')
+    $("#questionArea").html('Which of these can we help you find today?<br><br><input type="checkbox" name="interest1" id="moviesBox" value="Movies" checked>Movies<br><input type="checkbox" name="interest2" id="concertsBox" value="Concerts" checked>Concerts<br><input type="checkbox" name="interest3" id="sportsBox" value="Sports" checked>Sports<br><br><button class="interests">Submit</button><br><br>')
 })
 
 //Gets checkbox data for interests -> Sports
 $(document).on("click", '.interests', function() {
     onConnect = document.getElementById("moviesBox").checked;
     eventful = document.getElementById("concertsBox").checked;
-    sports = document.getElementById("sportsBox").checked;
+    sportsAPI = document.getElementById("sportsBox").checked;
     interests = [onConnect, eventful, sports];
     console.log(interests);
 
     if (sports) {
         //Display the first sports question
-        $("#questionArea").html('Okay.  Let\'s start with some questions about sports.  What sport(s) are you okay with?<br><input type="checkbox" id="baseball" name="sport1" value="Baseball" checked>Baseball<br><input type="checkbox" id="football" name="sport2" value="Football" checked>Football<br><input type="checkbox" id="basketball" name="sport3" value="Basketball" checked>Basketball<br><input type="checkbox" id="soccer" name="sport4" value="Soccer" checked>Soccer<br><input type="checkbox" id="hockey" name="sport5" value="Hockey" checked>Hockey<br><input type="checkbox" id="autoRacing" name="sport6" value="AutoRacing" checked>Auto Racing<br><input type="checkbox" id="tennis" name="sport7" value="Tennis" checked>Tennis<br><input type="checkbox" id="fighting" name="sport7" value="Fighting" checked>Fighting<br><input type="checkbox" id="sportsOthers" name="sport8" value="Others" checked>Others<br><br><button class="sports">Submit</button><br><br>')
+        $("#questionArea").html('Okay.  Let\'s start with sports.  What sport(s) are you okay with?<br><br><input type="checkbox" id="baseball" name="sport1" value="Baseball" checked>Baseball<br><input type="checkbox" id="football" name="sport2" value="Football" checked>Football<br><input type="checkbox" id="basketball" name="sport3" value="Basketball" checked>Basketball<br><input type="checkbox" id="soccer" name="sport4" value="Soccer" checked>Soccer<br><input type="checkbox" id="hockey" name="sport5" value="Hockey" checked>Hockey<br><br><button class="sports">Submit</button><br><br>')
     }
     else if(onConnect) {
         //Display the first movies question
-        $("#questionArea").html('Okay.  Here are a few questions about movies.  What rating(s) are you okay with?<br><input type="checkbox" id="rating1" value="G" checked>G<br><input type="checkbox" id="rating2" value="PG" checked>PG<br><input type="checkbox" id="rating3" value="PG13" checked>PG-13<br><input type="checkbox" id="rating4" value="R" checked>R<br><input type="checkbox" id="rating5" value="NC17" checked>NC-17<br><br><button class="ratings">Submit</button><br><br>')
+        $("#questionArea").html('Okay.  Now for movies.  What rating(s) are you okay with?<br><br><input type="checkbox" id="rating1" value="G" checked>G<br><input type="checkbox" id="rating2" value="PG" checked>PG<br><input type="checkbox" id="rating3" value="PG13" checked>PG-13<br><input type="checkbox" id="rating4" value="R" checked>R<br><input type="checkbox" id="rating5" value="NC17" checked>NC-17<br><br><button class="ratings">Submit</button><br><br>')
         console.log("No info for sports.");
     }
     else {
@@ -138,42 +119,25 @@ $(document).on("click", '.interests', function() {
     }
 })
 
-//Gets checkbox data for sports -> Levels
+//Gets checkbox data for sports -> Ratings/multiple users?
 $(document).on("click", '.sports', function() {
     sportBaseball = document.getElementById("baseball").checked;
     sportFootball = document.getElementById("football").checked;
     sportBasketball = document.getElementById("basketball").checked;
     sportSoccer = document.getElementById("soccer").checked;
     sportHockey = document.getElementById("hockey").checked;
-    sportAutoRacing = document.getElementById("autoRacing").checked;
-    sportTennis = document.getElementById("tennis").checked;
-    sportFighting = document.getElementById("fighting").checked;
-    sportOthers = document.getElementById("sportsOthers").checked;
-    sports = [sportBaseball, sportFootball, sportBasketball, sportSoccer, sportHockey, sportAutoRacing, sportTennis, sportFighting, sportOthers];
     console.log(sports);
-    //Display the next question
-    $("#questionArea").html('What skill level(s) are you okay with?<br><input type="checkbox" id="level1" value="Amateur" checked>Amateur<br><input type="checkbox" id="level2" value="College" checked>College<br><input type="checkbox" id="level3" value="Professional" checked>Professional<br><br><button class="levels">Submit</button><br><br>')
-})
 
-//Levels -> Ratings
-$(document).on("click", '.levels', function() {
-    sportAmateur = document.getElementById("level1").checked;
-    sportCollege = document.getElementById("level2").checked;
-    sportProfessional = document.getElementById("level3").checked;
-    levels = [sportAmateur, sportCollege, sportProfessional];
-    console.log(levels);
-
-    //Either move on to movies, or go to multiple users
+    //Either move on to movies, or go to multiple users?
     if(onConnect) {
         //Display the first movies question
-        $("#questionArea").html('Okay.  Here are a few questions about movies.  What rating(s) are you okay with?<br><input type="checkbox" id="rating1" value="G" checked>G<br><input type="checkbox" id="rating2" value="PG" checked>PG<br><input type="checkbox" id="rating3" value="PG13" checked>PG-13<br><input type="checkbox" id="rating4" value="R" checked>R<br><input type="checkbox" id="rating5" value="NC17" checked>NC-17<br><br><button class="ratings">Submit</button><br><br>')
+        $("#questionArea").html('Okay.  Now for movies.  What rating(s) are you okay with?<br><br><input type="checkbox" id="rating1" value="G" checked>G<br><input type="checkbox" id="rating2" value="PG" checked>PG<br><input type="checkbox" id="rating3" value="PG13" checked>PG-13<br><input type="checkbox" id="rating4" value="R" checked>R<br><input type="checkbox" id="rating5" value="NC17" checked>NC-17<br><br><button class="ratings">Submit</button><br><br>')
     }
     else {
         //Multiple users?
         $("#questionArea").html('One last thing.  Do you want your results now, or would you like to see if your preferences match up with a friend, first?<button class="onlyOneUser">Results!  Now!</button><button class="anotherUser">Results!  Now!</button>')
         console.log("No info for movies.")
-    }
-})
+    }})
 
 //Ratings -> Runtime
 $(document).on("click", '.ratings', function() {
@@ -188,57 +152,26 @@ $(document).on("click", '.ratings', function() {
     $("#questionArea").html('Click this button if you don\'t care how long your movie is. <button class="noMaxRuntime">Any length is fine!</button><br><br>Or, would you like to set a maximum runtime?<br><input type="range" min="90" max="240" value="0" step="5" class="timeRun" onchange="showRunTime(this.value)"/><span id="runTime">Maximum runtime: 90 minutes </span><button class="loadRunTime">Submit</button><br><br>')
 })
 
-//Sets noMaxRuntime to true -> Genres
+//Sets noMaxRuntime to true -> Multiple users?
 $(document).on("click", '.noMaxRuntime', function() {
     noMaxRuntime = true;
     console.log("No maximum runtime = " + noMaxRuntime);
     //Display the next question
-    $("#questionArea").html('What genre(s)? are you okay with?<br><input type="checkbox" id="genre1" value="Action" checked>Action<br><input type="checkbox" id="genre2" value="Comedy" checked>Comedy<br><input type="checkbox" id="genre3" value="Romance" checked>Romance<br><input type="checkbox" id="genre4" value="Horror" checked>Horror<br><input type="checkbox" id="genre5" value="Family" checked>Family<br><input type="checkbox" id="genre6" value="Drama" checked>Drama<br><input type="checkbox" id="genre7" value="Scifi" checked>Sci-Fi<br><input type="checkbox" id="genre8" value="Others" checked>Others<br><br><button class="genres">Submit</button><br><br>')
+    $("#questionArea").html('One last thing.  Do you want your results now, or would you like to see if your preferences match up with a friend, first?<br><br><button class="onlyOneUser">Results!  Now!</button><br><br><button class="anotherUser">Another user</button>')
 })
 
-//Runtime -> Genres
+//Runtime -> Multiple users?
 $(document).on("click", '.loadRunTime', function() {
     maxLength = $(".timeRun").val();
     console.log("Maximum length = " + maxLength + " minutes ");
     //Display the next question
-    $("#questionArea").html('What genre(s)? are you okay with?<br><input type="checkbox" id="genre1" value="Action" checked>Action<br><input type="checkbox" id="genre2" value="Comedy" checked>Comedy<br><input type="checkbox" id="genre3" value="Romance" checked>Romance<br><input type="checkbox" id="genre4" value="Horror" checked>Horror<br><input type="checkbox" id="genre5" value="Family" checked>Family<br><input type="checkbox" id="genre6" value="Drama" checked>Drama<br><input type="checkbox" id="genre7" value="Scifi" checked>Sci-Fi<br><input type="checkbox" id="genre8" value="Others" checked>Others<br><br><button class="genres">Submit</button><br><br>')
-})
-
-//Genres -> Endtime
-$(document).on("click", '.genres', function() {
-    genreAction = document.getElementById("genre1").checked;
-    genreComedy = document.getElementById("genre2").checked;
-    genreRomance = document.getElementById("genre3").checked;
-    genreHorror = document.getElementById("genre4").checked;
-    genreFamily = document.getElementById("genre5").checked;
-    genreDrama = document.getElementById("genre6").checked;
-    genreScifi = document.getElementById("genre7").checked;
-    genreOthers = document.getElementById("genre8").checked;
-    genres = [genreAction, genreComedy, genreRomance, genreHorror, genreFamily, genreDrama, genreScifi, genreOthers];
-    console.log(genres);
-    //Display the next question
-    $("#questionArea").html('Click this button if you don\'t care how late you\'ll be at the theater. <button class="noCurfew">No curfew for me!</button><br><br>Need to be done by a certain time?<input type="range" min="0" max="23.75" value="0" step="0.25" class="timeEnd" onchange="showEndTime(this.value)"/><span id="endTime">Endtime: 12:00 AM </span><button class="loadEndTime">Submit</button><br><br>')
-})
-
-//Sets noMaxRuntime to true -> Multiple users?
-$(document).on("click", '.noCurfew', function() {
-    noCurfew = true;
-    console.log("No curfew = " + noCurfew);
-    //Display the next question
-    $("#questionArea").html('One last thing.  Do you want your results now, or would you like to see if your preferences match up with a friend, first?<br><br><button class="onlyOneUser">Results!  Now!</button><br><br><button class="anotherUser">Another user</button>')
-})
-
-//Endtime -> Multiple users?
-$(document).on("click", '.loadEndTime', function() {
-    latestTime = $(".timeEnd").val();
-    console.log("Latest time = " + convertToTime(latestTime));
-    //Results
     $("#questionArea").html('One last thing.  Do you want your results now, or would you like to see if your preferences match up with a friend, first?<br><br><button class="onlyOneUser">Results!  Now!</button><br><br><button class="anotherUser">Another user</button>')
 })
 
 //Keeps oneUser set to true -> All done
 $(document).on("click", '.onlyOneUser', function() {
     console.log("Only one user");
+
     //Display the next question
     $("#questionArea").html('Done collecting info.  Check the console for results.')
 })
@@ -246,8 +179,69 @@ $(document).on("click", '.onlyOneUser', function() {
 //Changes oneUser to false -> All done
 $(document).on("click", '.anotherUser', function() {
     oneUser = false;
-    console.log("Another user");
-    //Display the next question
+    console.log("Another user.  Logging quiz answers to Firebase.");
+    //Initialize Firebase - get this info from Firebase
+    var config = {
+        apiKey: "AIzaSyD0PAm14WZvU0EwiknLFgyer4_lvliCrF0",
+        authDomain: "coffeyflintmendozagp.firebaseapp.com",
+        databaseURL: "https://coffeyflintmendozagp.firebaseio.com",
+        storageBucket: "coffeyflintmendozagp.appspot.com",
+        messagingSenderId: "1000692103308"
+    };
+    firebase.initializeApp(config);
+
+    // Get a reference to the database service
+    var database = firebase.database();
+
+    //Store all data on firebase database
+    database.ref().set({
+        FBoneUser: oneUser,
+        FBzipCode: zipCode,
+        FBradius: radius,
+        FBinterests: interests,
+        FBsports: sports,
+        FBlevels: levels,
+        FBgenres: genres,
+        FBratings: ratings
+    });
+
+    if (noCurfew === false) {
+        database.ref().push({
+            FBlatestTime: latestTime,
+            FBnoCurfew: noCurfew
+        })
+    }
+    else if (noCurfew) {
+        database.ref().push({
+            FBnoCurfew: noCurfew
+        })
+    }
+
+    if (noTimeConstraints === false) {
+        database.ref().push({
+            FBearliestTime: earliestTime,
+            FBnoTimeConstraints: noTimeConstraints
+        })
+    }
+    else if (noTimeConstraints) {
+        database.ref().push({
+            FBnoTimeConstraints: noTimeConstraints
+        })
+    }
+
+    if (noMaxRuntime === false) {
+        database.ref().push({
+            FBmaxLength: maxLength,
+            FBnoMaxRuntime: noMaxRuntime
+        })
+    }
+    else if (noMaxRuntime) {
+        database.ref().push({
+            FBnoMaxRuntime: noMaxRuntime
+        })
+    }
+
+    //All done!
     $("#questionArea").html('Done collecting info.  Check the console for results.')
 })
 
@@ -336,6 +330,217 @@ function convertToTime(num) {
         return str;
     }
 }
+
+$(document).on("click", ".onlyOneUser" ,function() {
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var Fdd = dd + 5
+    var yyyy = today.getFullYear();
+    if(dd<10){dd='0'+dd} if(mm<10){mm='0'+mm} today = yyyy+'-'+mm+'-'+dd;
+    console.log("Today is " + today);
+
+    var queryURLC = "http://api.jambase.com/events?zipCode=" + zipCode + "&radius=" + radius + "&page=0&api_key=7qxkwddawzewuq6ke5xgeus9";
+    var queryURLM = "https://data.tmsapi.com/v1.1/movies/showings?startDate="+today+"&zip=" + zipCode + "&radius=" + radius + "&api_key=9spw93n6wf2ug5mtd6pzphcm";
+    var queryURLS = "https://app.ticketmaster.com/discovery/v2/events.json?classificationName="+ sports+"&postalcode="+ zipCode +"&radius="+ radius +"&unit=miles&apikey=K1k9u4pDAt3XxPN91bxupADV2fxpDDGA"
+
+    //Eventful API Call
+    if (eventful) { 
+        $.ajax({ url: queryURLC, method: "GET" }).done(function(response) {
+
+          for (i = 0 ; i < ((response.Events.length + 10) - (response.Events.length) ) ; i ++ ) {
+
+            console.log("Concerts: " + response.Events[i].Artists[0].Name + " At: " + response.Events[i].Venue.Name + " " + response.Events[i].Venue.Address);
+          }
+      });
+    }
+
+    //Eventful API Call
+    // if (eventful) { 
+    //     $.ajax({ url: queryURLC, method: "GET" }).done(function(response) {
+
+    //          for (i = 0 ; i < response.Events.length ; i ++ ) {
+    //          console.log("Concerts: " + response.Events[i].Artists[0].Name);
+    //          }
+    //      });
+    // }
+
+    //onConnect API Call
+    if (onConnect) {
+        $.ajax({url: queryURLM , method: "GET"}).done(function(response) {
+
+            var jsonObj = response;
+            console.log(jsonObj);
+
+            //Appends appropriate parsed movie info
+            for (i = 0; i < jsonObj.length; i++) {
+                var titleString = "Title: " + jsonObj[i].title;
+
+                if ('ratings' in jsonObj[i]) {
+                    var ratingString = "Rating: " + jsonObj[i].ratings[0].code;
+                }
+                else {
+                    var ratingString = "Rating: Unrated";
+                }
+
+                var runtimeString = "Runtime: " + jsonObj[i].runTime;
+                var genresString = "Genres: " + jsonObj[i].genres;
+                var releaseDateString = "Release date: " + jsonObj[i].releaseDate;
+                var directorsString = "Director(s): " + jsonObj[i].directors;
+                var starsString = "Starring: " + jsonObj[i].topCast;
+                var plotSummaryString = "Plot summary: " + jsonObj[i].shortDescription;
+
+                //IF THE MOVIE MATCHES RATING, RATINGMATCH=TRUE
+                var ratingMatch = false
+                if ('ratings' in jsonObj[i]) {
+                    if (jsonObj[i].ratings[0].code === "G") {
+                        if (ratingG) {
+                            ratingMatch = true;
+                        }
+                    }
+                    if (jsonObj[i].ratings[0].code === "PG") {
+                        if (ratingPG) {
+                            ratingMatch = true;
+                        }
+                    }
+                    if (jsonObj[i].ratings[0].code === "PG-13") {
+                        if (ratingPG13) {
+                            ratingMatch = true;
+                        }
+                    }
+                    if (jsonObj[i].ratings[0].code === "R") {
+                        if (ratingR) {
+                            ratingMatch = true;
+                        }
+                    }
+                    if (jsonObj[i].ratings[0].code === "NC-17") {
+                        if (ratingNC17) {
+                            ratingMatch = true;
+                        }
+                    }
+                }
+                else {
+                    ratingMatch = true;
+                    console.log("No rating for this film.")
+                }
+
+                //IF THE RUNTIME IS LOWER THAN USER'S MAXLENGTH, OR IF NOTIMECONSTRAINTS IS TRUE, RUNTIMEMATCH=TRUE
+                if ('runTime' in jsonObj[i]) {
+                    if (noMaxRuntime === false) {
+                        var runtimeMatch = false;
+                        var runtimeArray = [];
+                        runtimeArray = jsonObj[i].runTime;
+                        runtimeArray.split('');
+                        var runtimeMinutes = 0;
+                        if (runtimeArray[5] === '0') {
+                            runtimeMinutes += parseInt(runtimeArray[6]);
+                        }
+                        if (runtimeArray[5] === '1') {
+                            runtimeMinutes += (10 + parseInt(runtimeArray[6]));
+                        }
+                        if (runtimeArray[5] === '2') {
+                            runtimeMinutes += (20 + parseInt(runtimeArray[6]));
+                        }
+                        if (runtimeArray[5] === '3') {
+                            runtimeMinutes += (30 + parseInt(runtimeArray[6]));
+                        }
+                        if (runtimeArray[5] === '4') {
+                            runtimeMinutes += (40 + parseInt(runtimeArray[6]));
+                        }
+                        if (runtimeArray[5] === '5') {
+                            runtimeMinutes += (50 + parseInt(runtimeArray[6]));
+                        }
+                        if (runtimeArray[3] === '4') {
+                            runtimeMinutes += 240;
+                        }
+                        if (runtimeArray[3] === '3') {
+                            runtimeMinutes += 180;
+                        }
+                        if (runtimeArray[3] === '2') {
+                            runtimeMinutes += 120;
+                        }
+                        if (runtimeArray[3] === '1') {
+                            runtimeMinutes += 60;
+                        }
+                        if (runtimeMinutes <= maxLength) {
+                            runtimeMatch = true;
+                        }
+                        console.log("Runtime in minutes = " + runtimeMinutes);
+                    }
+                    else {
+                        runtimeMatch = true;
+                    }
+                }
+
+                if (runtimeMatch) {
+                    if (ratingMatch) {
+                        $("#questionArea").append("<br><br>" + titleString);
+                        $("#questionArea").append("<br>" + ratingString);
+                        $("#questionArea").append("<br>" + runtimeString);
+                        $("#questionArea").append("<br>" + genresString);
+                        $("#questionArea").append("<br>" + releaseDateString);
+                        $("#questionArea").append("<br>" + directorsString);
+                        $("#questionArea").append("<br>" + starsString);
+                        $("#questionArea").append("<br>" + plotSummaryString);
+
+                        var showtimesString = "";
+                        for (j = 0; j < jsonObj[i].showtimes.length; j++) {
+                            showtimesString = "Theater: " + jsonObj[i].showtimes[j].theatre.name + " | " + jsonObj[i].showtimes[j].dateTime;
+                            $("#questionArea").append("<br>" + showtimesString);                    
+                        }
+                    }
+                    else {
+                        console.log("Ratings did not match, but runtimes did");
+                    }
+                }
+                else {
+                    if (ratingMatch) {
+                        console.log("Runtimes did not match, but ratings did");
+                    }
+                    else {
+                        console.log("Neither runtimes nor ratings matched");
+                    }   
+                }
+            }
+        });
+    }
+
+    //Sports API Call
+    // if (sports) {
+    //  var sportname = ["baseball", "football", "basketball", "soccer", "hockey"]
+    //  for (i = 0 ; i < sportname.length ; i++){
+    //      if (sportname[i]) {
+    //          var queryURLS = "https://app.ticketmaster.com/discovery/v2/events.json?classificationName="+ sportname[i]+"&dmaId=222&apikey=K1k9u4pDAt3XxPN91bxupADV2fxpDDGA"
+    //          $.ajax({url: queryURLS, method: "GET"}).done(function(response) {
+    //                  for (i = 0 ; i < response._embedded.events.length ; i++) {
+    //                  console.log(response._embedded.events[i].name);
+    //                  }
+    //              });
+    //      }
+    //      else {
+    //          console.log("no" + sportname[i]);
+    //      }
+    //  }
+    // }
+
+    if (sportsAPI) {
+        var sportname = ["baseball", "football", "basketball", "soccer", "hockey"]
+        for (i = 0 ; i < sports.length ; i++){
+            if (sports[i]) {
+                var queryURLS = "https://app.ticketmaster.com/discovery/v2/events.json?classificationName="+ sportname[i]+"&dmaId=222&apikey=K1k9u4pDAt3XxPN91bxupADV2fxpDDGA"
+                $.ajax({url: queryURLS, method: "GET"}).done(function(response) {
+                    for (i = 0 ; i < response._embedded.events.length ; i++) {
+                        console.log(response._embedded.events[i].name);
+                    }
+                }); 
+            }
+            else {
+                console.log("no" + sportname[i]);
+            }
+        }
+    }
+
+})
 
 //[DO ALL YOUR API/JSON STUFF HERE]
 //[DISPLAY ALL RESULTS]
