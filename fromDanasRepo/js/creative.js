@@ -195,15 +195,6 @@ $(document).on("click", '.onlyOneUser', function() {
 $(document).on("click", '.anotherUser', function() {
     oneUser = false;
     console.log("Another user.  Logging quiz answers to Firebase.");
-    //Initialize Firebase - get this info from Firebase
-    var config = {
-        apiKey: "AIzaSyD0PAm14WZvU0EwiknLFgyer4_lvliCrF0",
-        authDomain: "coffeyflintmendozagp.firebaseapp.com",
-        databaseURL: "https://coffeyflintmendozagp.firebaseio.com",
-        storageBucket: "coffeyflintmendozagp.appspot.com",
-        messagingSenderId: "1000692103308"
-    };
-    firebase.initializeApp(config);
 
     // Get a reference to the database service
     var database = firebase.database();
@@ -225,20 +216,8 @@ $(document).on("click", '.anotherUser', function() {
         FBratingNC17: ratingNC17,
         FBratingUnrated: ratingUnrated,
         FBnoMaxRuntime: noMaxRuntime,
-        FBmaxLength: maxLength,
+        FBmaxLength: maxLength
     });
-
-    if (noMaxRuntime === false) {
-        database.ref().push({
-            FBmaxLength: maxLength,
-            FBnoMaxRuntime: noMaxRuntime
-        })
-    }
-    else if (noMaxRuntime) {
-        database.ref().push({
-            FBnoMaxRuntime: noMaxRuntime
-        })
-    }
 
     //Back to the beginning
     $("#questionArea").html('Alright, User #2.  Which of these can we help YOU find today?<br><br><input type="checkbox" name="interest1" id="moviesBox" value="Movies" checked>Movies<br><input type="checkbox" name="interest2" id="concertsBox" value="Concerts" checked>Concerts<br><input type="checkbox" name="interest3" id="sportsBox" value="Sports" checked>Sports<br><br><button class="interests">Submit</button><br><br>')
