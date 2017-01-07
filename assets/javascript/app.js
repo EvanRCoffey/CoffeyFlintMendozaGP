@@ -1,3 +1,5 @@
+//VARIABLES START HERE_______________________________________________________
+
 //Variables to be populated no matter what
 
 var zipCode;
@@ -31,6 +33,29 @@ var ratings = [ratingG, ratingPG, ratingPG13, ratingR, ratingNC17, ratingUnrated
 
 var noMaxRuntime = false;
 var maxLength;
+
+//Dummy variables for second user
+
+var dummyonConnect;
+var dummyeventful;
+var dummysportsAPI;
+var dummysportBaseball;
+var dummysportFootball;
+var dummysportBasketball;
+var dummysportSoccer;
+var dummysportHockey;
+var dummyratingG;
+var dummyratingPG;
+var dummyratingPG13;
+var dummyratingR;
+var dummyratingNC17;
+var dummyratingUnrated;
+var dummynoMaxRuntime;
+var dummymaxLength;
+
+
+
+//QUESTIONNAIRE FUNCTIONS START HERE_______________________________________________________
 
 //Validate and populate zip code variable
 function readZipCode() {
@@ -148,26 +173,28 @@ $(document).on("click", '.noMaxRuntime', function() {
 	noMaxRuntime = true;
 	console.log("No maximum runtime = " + noMaxRuntime);
 	if (oneUser === false) {
-		onConnect = booleanTest(FBonConnect,onConnect);
-		eventful = booleanTest(FBeventful,eventful);
-		sportsAPI = booleanTest(FBsportsAPI,sportsAPI);
-		sportBaseball = booleanTest(FBsportBaseball,sportBaseball);
-		sportFootball = booleanTest(FBsportFootball,sportFootball);
-		sportBasketball = booleanTest(FBsportBasketball,sportBasketball);
-		sportSoccer = booleanTest(FBsportSoccer,sportSoccer);
-		sportHockey = booleanTest(FBsportHockey,sportHockey);
-		ratingG = booleanTest(FBratingG,ratingG);
-		ratingPG = booleanTest(FBratingPG,ratingPG);
-		ratingPG13 = booleanTest(FBratingPG13,ratingPG13);
-		ratingR = booleanTest(FBratingR,ratingR);
-		ratingNC17 = booleanTest(FBratingNC17,ratingNC17);
-		ratingUnrated = booleanTest(FBratingUnrated,ratingUnrated);
-		noMaxRuntime = booleanTest(FBnoMaxRuntime,noMaxRuntime);
+		onConnect = booleanTest(dummyonConnect,onConnect);
+		eventful = booleanTest(dummyeventful,eventful);
+		sportsAPI = booleanTest(dummysportsAPI,sportsAPI);
+		sportBaseball = booleanTest(dummysportBaseball,sportBaseball);
+		sportFootball = booleanTest(dummysportFootball,sportFootball);
+		sportBasketball = booleanTest(dummysportBasketball,sportBasketball);
+		sportSoccer = booleanTest(dummysportSoccer,sportSoccer);
+		sportHockey = booleanTest(dummysportHockey,sportHockey);
+		ratingG = booleanTest(dummyratingG,ratingG);
+		ratingPG = booleanTest(dummyratingPG,ratingPG);
+		ratingPG13 = booleanTest(dummyratingPG13,ratingPG13);
+		ratingR = booleanTest(dummyratingR,ratingR);
+		ratingNC17 = booleanTest(dummyratingNC17,ratingNC17);
+		ratingUnrated = booleanTest(dummyratingUnrated,ratingUnrated);
+		noMaxRuntime = booleanTest(dummynoMaxRuntime,noMaxRuntime);
 
-		if (FBmaxLength < maxLength) {
-			maxLength = FBmaxLength
+		if (dummymaxLength < maxLength) {
+			maxLength = dummymaxLength;
 		}
 
+		console.log("two users!!!!!!");
+		$("#questionArea").html('Done collecting info.');
 		performAPICalls();
 	}
 	else {
@@ -189,150 +216,71 @@ $(document).on("click", '.onlyOneUser', function() {
 	console.log("Only one user");
 	//Display the next question
 	$("#questionArea").html('Done collecting info.')
+	performAPICalls();
 })
 
 //Changes oneUser to false -> All done
 $(document).on("click", '.anotherUser', function() {
 	oneUser = false;
-	console.log("Another user.  Logging quiz answers to Firebase.");
+	console.log("Another user.");
 	//Initialize Firebase - get this info from Firebase
-	var config = {
-	    apiKey: "AIzaSyD0PAm14WZvU0EwiknLFgyer4_lvliCrF0",
-	    authDomain: "coffeyflintmendozagp.firebaseapp.com",
-	    databaseURL: "https://coffeyflintmendozagp.firebaseio.com",
-	    storageBucket: "coffeyflintmendozagp.appspot.com",
-	    messagingSenderId: "1000692103308"
-  	};
-	firebase.initializeApp(config);
+	// var config = {
+	//     apiKey: "AIzaSyD0PAm14WZvU0EwiknLFgyer4_lvliCrF0",
+	//     authDomain: "coffeyflintmendozagp.firebaseapp.com",
+	//     databaseURL: "https://coffeyflintmendozagp.firebaseio.com",
+	//     storageBucket: "coffeyflintmendozagp.appspot.com",
+	//     messagingSenderId: "1000692103308"
+	// };
+	// firebase.initializeApp(config);
 
-	// Get a reference to the database service
-	var database = firebase.database();
+	// // Get a reference to the database service
+	// var database = firebase.database().ref();
 
-	//Store all data on firebase database
-	database.ref().set({
-	    FBonConnect: onConnect,
-	    FBeventful: eventful,
-	    FBsportsAPI: sportsAPI,
-	    FBsportBaseball: sportBaseball,
-	    FBsportFootball: sportFootball,
-	    FBsportBasketball: sportBasketball,
-	    FBsportSoccer: sportSoccer,
-	    FBsportHockey: sportHockey,
-	    FBratingG: ratingG,
-	    FBratingPG: ratingPG,
-	    FBratingPG13: ratingPG13,
-	    FBratingR: ratingR,
-	    FBratingNC17: ratingNC17,
-	    FBratingUnrated: ratingUnrated,
-	    FBnoMaxRuntime: noMaxRuntime,
-	    FBmaxLength: maxLength,
-	});
+	// //Store all data on firebase database
+	// database.set({
+	//     FBonConnect: onConnect,
+	//     FBeventful: eventful,
+	//     FBsportsAPI: sportsAPI,
+	//     FBsportBaseball: sportBaseball,
+	//     FBsportFootball: sportFootball,
+	//     FBsportBasketball: sportBasketball,
+	//     FBsportSoccer: sportSoccer,
+	//     FBsportHockey: sportHockey,
+	//     FBratingG: ratingG,
+	//     FBratingPG: ratingPG,
+	//     FBratingPG13: ratingPG13,
+	//     FBratingR: ratingR,
+	//     FBratingNC17: ratingNC17,
+	//     FBratingUnrated: ratingUnrated,
+	//     FBnoMaxRuntime: noMaxRuntime,
+	//     FBmaxLength: maxLength,
+	// });
 
-	if (noMaxRuntime === false) {
-		database.ref().push({
-		    FBmaxLength: maxLength,
-		    FBnoMaxRuntime: noMaxRuntime
-		})
-	}
-	else if (noMaxRuntime) {
-		database.ref().push({
-		    FBnoMaxRuntime: noMaxRuntime
-		})
-	}
+	//Currently using dummy variables until firebase is working correctly
+	dummyonConnect = onConnect;
+	dummyeventful = eventful;
+	dummysportsAPI = sportsAPI;
+	dummysportBaseball = sportBaseball;
+	dummysportFootball = sportFootball;
+	dummysportBasketball = sportBasketball;
+	dummysportSoccer = sportSoccer;
+	dummysportHockey = sportHockey;
+	dummyratingG = ratingG;
+	dummyratingPG = ratingPG;
+	dummyratingPG13 = ratingPG13;
+	dummyratingR = ratingR;
+	dummyratingNC17 = ratingNC17;
+	dummyratingUnrated = ratingUnrated;
+	dummynoMaxRuntime = noMaxRuntime;
+	dummymaxLength = maxLength;
 
 	//Back to the beginning
 	$("#questionArea").html('Alright, User #2.  Which of these can we help YOU find today?<br><br><input type="checkbox" name="interest1" id="moviesBox" value="Movies" checked>Movies<br><input type="checkbox" name="interest2" id="concertsBox" value="Concerts" checked>Concerts<br><input type="checkbox" name="interest3" id="sportsBox" value="Sports" checked>Sports<br><br><button class="interests">Submit</button><br><br>')
 })
 
-//Displays current value of slidebars
-function showEndTime(newValue) {
-	document.getElementById("endTime").innerHTML="Endtime: " + convertToTime(newValue);
-}
-function showRunTime(newValue) {
-	document.getElementById("runTime").innerHTML="Maximum runtime: " + newValue + " minutes ";
-}
-function showEarliestTime(newValue) {
-	document.getElementById("earliestTime").innerHTML="Earliest available time: " + convertToTime(newValue);
-}
-function showRadius(newValue) {
-	document.getElementById("radiusSlidebar").innerHTML="I'm willing to travel: " + newValue + " miles ";
-}
 
-//Converts a number with format xx.xx to an AM/PM time.  Returns the time as a string.
-function convertToTime(num) {
-	if (num % 1 === 0) {
-		var x = num - 12;
-		var str = "";
-		if (x > 0) {
-			str = x + ":00 PM ";
-		}
-		else if (x === -12) {
-			str = (x+24) + ":00 AM "
-		}
-		else if (x === 0) {
-			str = (x+12) + ":00 PM "
-		}
-		else {
-			str = (x+12) + ":00 AM "
-		}
-		return str;
-	}
-	else if (num % 1 === 0.25) {
-		var x = num - 12.25;
-		var str = "";
-		if (x > 0) {
-			str = x + ":15 PM ";
-		}
-		else if (x === -12) {
-			str = (x+24) + ":15 AM "
-		}
-		else if (x === 0) {
-			str = (x+12) + ":15 PM "
-		}
-		else {
-			str = (x+12) + ":15 AM "
-		}
-		return str;
-	}
-	else if (num % 1 === 0.5) {
-		var x = num - 12.5;
-		var str = "";
-		if (x > 0) {
-			str = x + ":30 PM ";
-		}
-		else if (x === -12) {
-			str = (x+24) + ":30 AM "
-		}
-		else if (x === 0) {
-			str = (x+12) + ":30 PM "
-		}
-		else {
-			str = (x+12) + ":30 AM "
-		}
-		return str;
-	}
-	else if (num % 1 === 0.75) {
-		var x = num - 12.75;
-		var str = "";
-		if (x > 0) {
-			str = x + ":45 PM ";
-		}
-		else if (x === -12) {
-			str = (x+24) + ":45 AM "
-		}
-		else if (x === 0) {
-			str = (x+12) + ":45 PM "
-		}
-		else {
-			str = (x+12) + ":45 AM "
-		}
-		return str;
-	}
-}
 
-$(document).on("click", ".onlyOneUser" ,function() {
-	performAPICalls();
-})
+//RESULTS FUNCTIONS START HERE_______________________________________________________
 
 function performAPICalls() {
 	var today = new Date();
@@ -538,6 +486,9 @@ function performAPICalls() {
 }
 
 
+
+//UTILITY FUNCTIONS START HERE_______________________________________________________
+
 //Takes two booleans.  Returns true if they're both true, false otherwise.
 function booleanTest(booleanOne,booleanTwo) {
 	if (booleanOne && booleanTwo) {
@@ -548,26 +499,88 @@ function booleanTest(booleanOne,booleanTwo) {
 	}
 }
 
-/*Testing user2 input versus user1's input (which is on firebase)
-
-onConnect = booleanTest(FBonConnect,onConnect);
-eventful = booleanTest(FBeventful,eventful);
-sportsAPI = booleanTest(FBsportsAPI,sportsAPI);
-sportBaseball = booleanTest(FBsportBaseball,sportBaseball);
-sportFootball = booleanTest(FBsportFootball,sportFootball);
-sportBasketball = booleanTest(FBsportBasketball,sportBasketball);
-sportSoccer = booleanTest(FBsportSoccer,sportSoccer);
-sportHockey = booleanTest(FBsportHockey,sportHockey);
-ratingG = booleanTest(FBratingG,ratingG);
-ratingPG = booleanTest(FBratingPG,ratingPG);
-ratingPG13 = booleanTest(FBratingPG13,ratingPG13);
-ratingR = booleanTest(FBratingR,ratingR);
-ratingNC17 = booleanTest(FBratingNC17,ratingNC17);
-ratingUnrated = booleanTest(FBratingUnrated,ratingUnrated);
-noMaxRuntime = booleanTest(FBnoMaxRuntime,noMaxRuntime);
-
-if (FBmaxLength < maxLength) {
-	maxLength = FBmaxLength
+//Displays current value of slidebars
+function showEndTime(newValue) {
+	document.getElementById("endTime").innerHTML="Endtime: " + convertToTime(newValue);
+}
+function showRunTime(newValue) {
+	document.getElementById("runTime").innerHTML="Maximum runtime: " + newValue + " minutes ";
+}
+function showEarliestTime(newValue) {
+	document.getElementById("earliestTime").innerHTML="Earliest available time: " + convertToTime(newValue);
+}
+function showRadius(newValue) {
+	document.getElementById("radiusSlidebar").innerHTML="I'm willing to travel: " + newValue + " miles ";
 }
 
-*/
+//Converts a number with format xx.xx to an AM/PM time.  Returns the time as a string.
+function convertToTime(num) {
+	if (num % 1 === 0) {
+		var x = num - 12;
+		var str = "";
+		if (x > 0) {
+			str = x + ":00 PM ";
+		}
+		else if (x === -12) {
+			str = (x+24) + ":00 AM "
+		}
+		else if (x === 0) {
+			str = (x+12) + ":00 PM "
+		}
+		else {
+			str = (x+12) + ":00 AM "
+		}
+		return str;
+	}
+	else if (num % 1 === 0.25) {
+		var x = num - 12.25;
+		var str = "";
+		if (x > 0) {
+			str = x + ":15 PM ";
+		}
+		else if (x === -12) {
+			str = (x+24) + ":15 AM "
+		}
+		else if (x === 0) {
+			str = (x+12) + ":15 PM "
+		}
+		else {
+			str = (x+12) + ":15 AM "
+		}
+		return str;
+	}
+	else if (num % 1 === 0.5) {
+		var x = num - 12.5;
+		var str = "";
+		if (x > 0) {
+			str = x + ":30 PM ";
+		}
+		else if (x === -12) {
+			str = (x+24) + ":30 AM "
+		}
+		else if (x === 0) {
+			str = (x+12) + ":30 PM "
+		}
+		else {
+			str = (x+12) + ":30 AM "
+		}
+		return str;
+	}
+	else if (num % 1 === 0.75) {
+		var x = num - 12.75;
+		var str = "";
+		if (x > 0) {
+			str = x + ":45 PM ";
+		}
+		else if (x === -12) {
+			str = (x+24) + ":45 AM "
+		}
+		else if (x === 0) {
+			str = (x+12) + ":45 PM "
+		}
+		else {
+			str = (x+12) + ":45 AM "
+		}
+		return str;
+	}
+}
