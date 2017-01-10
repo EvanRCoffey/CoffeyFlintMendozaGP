@@ -65,10 +65,10 @@ function readZipCode() {
         zipCode = x;
         console.log("Zip code = " + zipCode);
         //Display the next question
-        $("#questionArea").html('How far are you willing to travel?<br><input type="range" min="1" max="50" value="20" step="1" class="radius" onchange="showRadius(this.value)"/><span id="radiusSlidebar">I\'m willing to travel: 20 miles </span><button class="loadRadiusSlidebar">Submit</button><br><br>')
+        $("#questionArea").html('How far are you willing to travel?<br><input type="range" min="1" max="50" value="20" step="1" class="radius" onchange="showRadius(this.value)"/><span id="radiusSlidebar">I\'m willing to travel: 20 miles </span><button class="btn btn-danger loadRadiusSlidebar">Submit</button><br><br>')
     }
     else
-        $("#questionArea").html('Please enter your zip code:<br><input type="text" id="zipCode"><br><button onclick="readZipCode()" class="btn btn-danger">Submit</button><br><br>That ain\'t a valid zip code!  Try again, or let us find your location <br><button id="zip"  class="btn btn-danger">Get ZIP </button><br><br>')
+        $("#questionArea").html('Please enter your zip code:<br><input type="text" id="zipCode" class="textBox"><br><button onclick="readZipCode()" class="btn btn-danger">Submit</button><br><br>That ain\'t a valid zip code!  Try again, or let us find your location <br><button id="zip"  class="btn btn-danger">Get ZIP </button><br><br>')
 }
 
 //Pull zip code with user's location
@@ -90,7 +90,7 @@ $(document).on("click", '#zip', function() {
             })
         })
         //Display the next question
-        $("#questionArea").html('How far are you willing to travel?<br><input type="range" min="1" max="50" value="20" step="1" class="radius" onchange="showRadius(this.value)"/><span id="radiusSlidebar">I\'m willing to travel: 20 miles </span><button class="loadRadiusSlidebar">Submit</button><br><br>')
+        $("#questionArea").html('How far are you willing to travel?<br><input type="range" min="1" max="50" value="20" step="1" class="radius" onchange="showRadius(this.value)"/><span id="radiusSlidebar">I\'m willing to travel: 20 miles </span><button class="btn btn-danger loadRadiusSlidebar">Submit</button><br><br>')
     }
 })
 
@@ -99,7 +99,7 @@ $(document).on("click", '.loadRadiusSlidebar', function() {
     radius = $(".radius").val();
     console.log("Willing to travel " + radius + " miles");
     //Display the next question
-    $("#questionArea").html('Which of these can we help you find today?<br><br><input type="checkbox" name="interest1" id="moviesBox" value="Movies" checked>Movies<br><input type="checkbox" name="interest2" id="concertsBox" value="Concerts" checked>Concerts<br><input type="checkbox" name="interest3" id="sportsBox" value="Sports" checked>Sports<br><br><button class="interests">Submit</button><br><br>')
+    $("#questionArea").html('Which of these can we help you find today?<br><br><input type="checkbox" name="interest1" id="moviesBox" value="Movies" checked>Movies<br><input type="checkbox" name="interest2" id="concertsBox" value="Concerts" checked>Concerts<br><input type="checkbox" name="interest3" id="sportsBox" value="Sports" checked>Sports<br><br><button class="btn btn-danger interests">Submit</button><br><br>')
 })
 
 //Sets noTimeConstraints to true -> Interests
@@ -107,7 +107,7 @@ $(document).on("click", '.noTimeConstraints', function() {
     noTimeConstraints = true;
     console.log("No time constraints = " + noTimeConstraints);
     //Display the next question
-    $("#questionArea").html('Which of these can we help you find today?<br><br><input type="checkbox" name="interest1" id="moviesBox" value="Movies" checked>Movies<br><input type="checkbox" name="interest2" id="concertsBox" value="Concerts" checked>Concerts<br><input type="checkbox" name="interest3" id="sportsBox" value="Sports" checked>Sports<br><br><button class="interests">Submit</button><br><br>')
+    $("#questionArea").html('Which of these can we help you find today?<br><br><input type="checkbox" name="interest1" id="moviesBox" value="Movies" checked>Movies<br><input type="checkbox" name="interest2" id="concertsBox" value="Concerts" checked>Concerts<br><input type="checkbox" name="interest3" id="sportsBox" value="Sports" checked>Sports<br><br><button class="btn btn-danger interests">Submit</button><br><br>')
 })
 
 //Gets checkbox data for interests -> Sports
@@ -120,16 +120,16 @@ $(document).on("click", '.interests', function() {
 
     if (sportsAPI) {
         //Display the first sports question
-        $("#questionArea").html('Okay.  What sport(s) are you okay with?<br><br><input type="checkbox" id="baseball" name="sport1" value="Baseball" checked>Baseball<br><input type="checkbox" id="football" name="sport2" value="Football" checked>Football<br><input type="checkbox" id="basketball" name="sport3" value="Basketball" checked>Basketball<br><input type="checkbox" id="soccer" name="sport4" value="Soccer" checked>Soccer<br><input type="checkbox" id="hockey" name="sport5" value="Hockey" checked>Hockey<br><br><button class="sports">Submit</button><br><br>')
+        $("#questionArea").html('Okay.  What sport(s) are you okay with?<br><br><input type="checkbox" id="baseball" name="sport1" value="Baseball" checked>Baseball<br><input type="checkbox" id="football" name="sport2" value="Football" checked>Football<br><input type="checkbox" id="basketball" name="sport3" value="Basketball" checked>Basketball<br><input type="checkbox" id="soccer" name="sport4" value="Soccer" checked>Soccer<br><input type="checkbox" id="hockey" name="sport5" value="Hockey" checked>Hockey<br><br><button class="btn btn-danger sports">Submit</button><br><br>')
     }
     else if(onConnect) {
         //Display the first movies question
-        $("#questionArea").html('Okay.  What rating(s) are you okay with?<br><br><input type="checkbox" id="rating1" value="G" checked>G<br><input type="checkbox" id="rating2" value="PG" checked>PG<br><input type="checkbox" id="rating3" value="PG13" checked>PG-13<br><input type="checkbox" id="rating4" value="R" checked>R<br><input type="checkbox" id="rating5" value="NC17" checked>NC-17<br><input type="checkbox" id="rating6" value="Unrated" checked>Unrated<br><br><button class="ratings">Submit</button><br><br>')
+        $("#questionArea").html('Okay.  What rating(s) are you okay with?<br><br><input type="checkbox" id="rating1" value="G" checked>G<br><input type="checkbox" id="rating2" value="PG" checked>PG<br><input type="checkbox" id="rating3" value="PG13" checked>PG-13<br><input type="checkbox" id="rating4" value="R" checked>R<br><input type="checkbox" id="rating5" value="NC17" checked>NC-17<br><input type="checkbox" id="rating6" value="Unrated" checked>Unrated<br><br><button class="btn btn-danger ratings">Submit</button><br><br>')
         console.log("No info for sports.");
     }
     else {
         //Multiple users?
-        $("#questionArea").html('One last thing.  Do you want your results now, or would you like to see if your preferences match up with a friend, first?<br><br><button class="onlyOneUser">Results!  Now!</button><br><br><button class="anotherUser">Another user</button>')
+        $("#questionArea").html('One last thing.  Do you want your results now, or would you like to see if your preferences match up with a friend, first?<br><br><button class="btn btn-danger onlyOneUser">Results!  Now!</button><br><br><button class="btn btn-danger anotherUser">Another user</button>')
         console.log("No info for movies or sports.");
     }
 })
@@ -146,11 +146,11 @@ $(document).on("click", '.sports', function() {
     //Either move on to movies, or go to multiple users?
     if(onConnect) {
         //Display the first movies question
-        $("#questionArea").html('Okay.  Now for movies.  What rating(s) are you okay with?<br><br><input type="checkbox" id="rating1" value="G" checked>G<br><input type="checkbox" id="rating2" value="PG" checked>PG<br><input type="checkbox" id="rating3" value="PG13" checked>PG-13<br><input type="checkbox" id="rating4" value="R" checked>R<br><input type="checkbox" id="rating5" value="NC17" checked>NC-17<br><input type="checkbox" id="rating6" value="Unrated" checked>Unrated<br><br><button class="ratings">Submit</button><br><br>')
+        $("#questionArea").html('Okay.  Now for movies.  What rating(s) are you okay with?<br><br><input type="checkbox" id="rating1" value="G" checked>G<br><input type="checkbox" id="rating2" value="PG" checked>PG<br><input type="checkbox" id="rating3" value="PG13" checked>PG-13<br><input type="checkbox" id="rating4" value="R" checked>R<br><input type="checkbox" id="rating5" value="NC17" checked>NC-17<br><input type="checkbox" id="rating6" value="Unrated" checked>Unrated<br><br><button class="btn btn-danger ratings">Submit</button><br><br>')
     }
     else {
         //Multiple users?
-        $("#questionArea").html('One last thing.  Do you want your results now, or would you like to see if your preferences match up with a friend, first?<br><br><button class="onlyOneUser">Results!  Now!</button><br><br><button class="anotherUser">Another user</button>')
+        $("#questionArea").html('One last thing.  Do you want your results now, or would you like to see if your preferences match up with a friend, first?<br><br><button class="btn btn-danger onlyOneUser">Results!  Now!</button><br><br><button class="btn btn-danger anotherUser">Another user</button>')
         console.log("No info for movies.")
     }})
 
@@ -165,7 +165,7 @@ $(document).on("click", '.ratings', function() {
     ratings = [ratingG, ratingPG, ratingPG13, ratingR, ratingNC17, ratingUnrated];
     console.log(ratings)
     //Display the next question
-    $("#questionArea").html('Click this button if you don\'t care how long your movie is. <button class="noMaxRuntime">Any length is fine!</button><br><br>Or, would you like to set a maximum runtime?<br><input type="range" min="90" max="240" value="120" step="5" class="timeRun" onchange="showRunTime(this.value)"/><span id="runTime">Maximum runtime: 120 minutes </span><button class="loadRunTime">Submit</button><br><br>')
+    $("#questionArea").html('Click this button if you don\'t care how long your movie is. <button class="btn btn-danger noMaxRuntime">Any length is fine!</button><br><br>Or, would you like to set a maximum runtime?<br><input type="range" min="90" max="240" value="120" step="5" class="timeRun" onchange="showRunTime(this.value)"/><span id="runTime">Maximum runtime: 120 minutes </span><button class="btn btn-danger loadRunTime">Submit</button><br><br>')
 })
 
 //Sets noMaxRuntime to true -> Multiple users?
@@ -199,7 +199,7 @@ $(document).on("click", '.noMaxRuntime', function() {
     }
     else {
         //Display the next question
-        $("#questionArea").html('One last thing.  Do you want your results now, or would you like to see if your preferences match up with a friend, first?<br><br><button class="onlyOneUser">Results!  Now!</button><br><br><button class="anotherUser">Another user</button>')
+        $("#questionArea").html('One last thing.  Do you want your results now, or would you like to see if your preferences match up with a friend, first?<br><br><button class="btn btn-danger onlyOneUser">Results!  Now!</button><br><br><button class="btn btn-danger anotherUser">Another user</button>')
     }
 })
 
@@ -208,7 +208,7 @@ $(document).on("click", '.loadRunTime', function() {
     maxLength = $(".timeRun").val();
     console.log("Maximum length = " + maxLength + " minutes ");
     //Display the next question
-    $("#questionArea").html('One last thing.  Do you want your results now, or would you like to see if your preferences match up with a friend, first?<br><br><button class="onlyOneUser">Results!  Now!</button><br><br><button class="anotherUser">Another user</button>')
+    $("#questionArea").html('One last thing.  Do you want your results now, or would you like to see if your preferences match up with a friend, first?<br><br><button class="btn btn-danger onlyOneUser">Results!  Now!</button><br><br><button class="btn btn-danger anotherUser">Another user</button>')
 })
 
 //Keeps oneUser set to true -> All done
@@ -275,7 +275,7 @@ $(document).on("click", '.anotherUser', function() {
     dummymaxLength = maxLength;
 
     //Back to the beginning
-    $("#questionArea").html('Alright, User #2.  Which of these can we help YOU find today?<br><br><input type="checkbox" name="interest1" id="moviesBox" value="Movies" checked>Movies<br><input type="checkbox" name="interest2" id="concertsBox" value="Concerts" checked>Concerts<br><input type="checkbox" name="interest3" id="sportsBox" value="Sports" checked>Sports<br><br><button class="interests">Submit</button><br><br>')
+    $("#questionArea").html('Alright, User #2.  Which of these can we help YOU find today?<br><br><input type="checkbox" name="interest1" id="moviesBox" value="Movies" checked>Movies<br><input type="checkbox" name="interest2" id="concertsBox" value="Concerts" checked>Concerts<br><input type="checkbox" name="interest3" id="sportsBox" value="Sports" checked>Sports<br><br><button class="btn btn-danger interests">Submit</button><br><br>')
 })
 
 
