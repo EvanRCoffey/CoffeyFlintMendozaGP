@@ -1,0 +1,5 @@
+Firebase not working - future functionality will include saving results of first user to firebase, then providing a link to send to a friend so that he/she can complete it at a different computer.  At that point, we could also find intersecting locations instead of just intersecting preferences.
+
+No divisions - the order of the results keeps changing and I'm not sure how to get the divisions to work consistently
+
+all 5 sports checkboxes are false
